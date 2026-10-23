@@ -2061,6 +2061,74 @@ footer > a:last-child {
   }
 }
 
+/* A little more tactile depth, with pointer motion kept subtle and optional. */
+:root {
+  --paper: #f7f5ef;
+  --surface: #fffdf7;
+  --forest: #264938;
+  --lime: #e3ed9a;
+  --copper: #b45c3e;
+  --line: #d8dbcf;
+  --body-size: clamp(14px, 0.94rem + 0.12vw, 16px);
+}
+body {
+  font-size: var(--body-size);
+  line-height: 1.65;
+}
+.cursor-aura {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate3d(calc(var(--pointer-x, -400px) - 50%), calc(var(--pointer-y, -400px) - 50%), 0);
+  background: radial-gradient(circle, #c9d69b24 0%, #c9d69b10 34%, transparent 70%);
+  transition: opacity 260ms ease;
+  will-change: transform;
+}
+html[data-cursor-aura="on"] .cursor-aura:not([data-hidden]) {
+  opacity: 1;
+}
+.header {
+  transition: background-color 240ms ease, box-shadow 240ms ease;
+}
+.header:has(+ main) {
+  box-shadow: 0 8px 24px #20372d05;
+}
+.competency,
+.project-card,
+.metric,
+.recognition > div {
+  transition: transform 320ms cubic-bezier(.2,.75,.25,1), box-shadow 320ms ease, border-color 320ms ease;
+}
+.competency:hover,
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 42px #20372d12;
+}
+.competency:hover {
+  border-color: #b9c39e;
+}
+.section-heading h2,
+.about-layout h2,
+.innovation-section h2,
+.contact-section h2 {
+  text-wrap: balance;
+}
+::selection {
+  background: #e3ed9a;
+}
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-aura { display: none; }
+}
+@media (max-width: 760px) {
+  :root { --body-size: 14px; }
+}
+
 /* Editorial motion system: forest, warm paper, and a measured copper accent. */
 .wordmark > span {
   color: var(--copper);

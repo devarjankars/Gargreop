@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Arrival } from "@/components/arrival";
+import { CursorAura } from "@/components/cursor-aura";
 import "./globals.css";
 
 const manrope = localFont({
@@ -27,6 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${manrope.variable} ${editorial.variable}`}>
       <body>
+        <CursorAura />
         <Arrival />
         {children}
       </body>
