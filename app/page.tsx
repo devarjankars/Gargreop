@@ -1,140 +1,394 @@
-import { ArrowUpRight, ArrowDown, Sparkles, Database, ShieldCheck, Award, MapPin, Linkedin, Mail } from 'lucide-react';
-import { Header, Reveal, Metrics, Assistant, Projects, Timeline, ContactButton } from '@/components/interactive';
+import {
+  ArrowUpRight,
+  ArrowDown,
+  Sparkles,
+  Database,
+  ShieldCheck,
+  Award,
+  MapPin,
+  Linkedin,
+  Phone,
+  Download,
+} from "lucide-react";
+import {
+  Header,
+  Reveal,
+  Metrics,
+  Assistant,
+  Projects,
+  Timeline,
+  ContactButton,
+} from "@/components/interactive";
+import { SignalSculpture } from "@/components/signal-sculpture";
+
+const competencies = [
+  {
+    icon: Sparkles,
+    number: "01",
+    title: "Intelligence that works.",
+    copy: "Bringing AI into the everyday decisions that move work forward.",
+    skills: [
+      "Agentic AI & LLM Integration",
+      "Power Automate",
+      "SharePoint Workflow Automation",
+    ],
+  },
+  {
+    icon: Database,
+    number: "02",
+    title: "Data with direction.",
+    copy: "Engineering reliable foundations for insights people can act on.",
+    skills: [
+      "SQL · BigQuery · Python",
+      "Power BI · DAX · Tableau",
+      "ETL/ELT · Data Modelling",
+    ],
+  },
+  {
+    icon: ShieldCheck,
+    number: "03",
+    title: "Confidence by design.",
+    copy: "Making risk visible and connecting control gaps to better decisions.",
+    skills: [
+      "Audit & Fraud-Risk Analytics",
+      "Risk & Controls",
+      "Root Cause Analysis · CAPA",
+    ],
+  },
+];
 
 export default function Home() {
   return (
     <>
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
       <Header />
-      <main id="home">
-        <section className="hero section-wrap">
-          <div className="hero-glow" aria-hidden="true" />
+      <main id="main-content">
+        <section id="home" className="hero section-wrap">
           <div className="hero-topline">
-            <span className="eyebrow"><span className="status-dot" /> BI & ANALYTICS LEAD · 11+ YEARS</span>
-            <span className="location"><MapPin size={13} /> Bengaluru, India</span>
+            <span className="eyebrow">
+              <span className="status-dot" /> INDEPENDENT THINKING. ENTERPRISE
+              IMPACT.
+            </span>
+            <span className="location">
+              <MapPin size={13} /> Bengaluru, India
+            </span>
           </div>
           <div className="hero-layout">
             <div className="hero-copy">
-              <h1>Complex data.<br />Clear decisions.<br /><span>Real impact.</span></h1>
-              <p className="hero-intro">I’m <strong>Sonu Garg</strong> — a BI & Analytics Lead bringing clarity to enterprise risk, audit intelligence, and the next generation of AI-powered workflows.</p>
+              <p className="hero-kicker">SONU GARG / BI & ANALYTICS LEAD</p>
+              <h1>
+                Finding the
+                <br />
+                <span className="hero-word">clarity</span>
+                <br />
+                in complexity.
+              </h1>
+              <p className="hero-intro">
+                I connect data, risk, and AI to make complex decisions feel
+                clear. <strong>11+ years</strong> building what comes after the
+                dashboard.
+              </p>
               <div className="hero-actions">
-                <a className="button primary" href="#work">Explore my work <ArrowUpRight size={18} /></a>
-                <a className="text-link" href="#contact">Let’s talk <ArrowUpRight size={16} /></a>
-              </div>
-              <div className="hero-credentials">
-                <span>Turning insight into action at</span>
-                <div><b>Accenture</b><i /><b>Commvault</b><i /><b className="amazon">amazon<span>⌣</span></b></div>
+                <a className="button primary" href="#work">
+                  Discover my work <ArrowUpRight size={18} />
+                </a>
+                <a className="text-link" href="/Sonu-Garg-Resume.pdf" download>
+                  Get my résumé <Download size={15} />
+                </a>
               </div>
             </div>
-            <div className="hero-art" role="img" aria-label="Portrait placeholder, ready for a profile photo">
-              <div className="portrait-frame">
-                <div className="portrait-grid" />
-                <div className="portrait-glow" />
-                <div className="portrait-halo" />
-                <div className="portrait-orbit" />
-                <span className="portrait-monogram" aria-hidden="true">SG</span>
-                <div className="portrait-caption">
-                  <div><strong>People first.<br />Insight always.</strong><span>ANALYTICS · STRATEGY · IMPACT</span></div>
-                  <Sparkles size={20} />
-                </div>
-              </div>
-              <span className="portrait-tag"><span className="tiny-dot" /> YOUR PORTRAIT, WHEN READY</span>
-              <span className="portrait-index">PROFILE / 01</span>
-            </div>
+            <SignalSculpture />
           </div>
-          <Metrics />
-          <a className="scroll-cue" href="#innovation"><ArrowDown size={13} /> SCROLL TO DISCOVER</a>
+          <div className="hero-footnote">
+            <span>BUSINESS INTELLIGENCE / AUDIT ANALYTICS / AGENTIC AI</span>
+            <a href="#about">
+              A LITTLE CONTEXT <ArrowDown size={14} />
+            </a>
+          </div>
         </section>
 
-        <section id="innovation" className="section-wrap section-space">
-          <Reveal className="spotlight-layout">
+        <div className="company-band">
+          <div className="section-wrap">
+            <span>EXPERIENCE SHAPED AT</span>
             <div>
-              <span className="eyebrow cyan"><Sparkles size={14} /> THE NEXT CHAPTER OF ANALYTICS</span>
-              <h2>Less searching.<br />More <span className="gradient-text">knowing.</span></h2>
-              <p className="section-copy">Audit intelligence should be a conversation. Not a scavenger hunt.</p>
-              <p className="muted leading-relaxed">I built an Agentic AI Audit Assistant connected to the IA3 status tracker, making audit status and ownership accessible through natural-language queries.</p>
-              <div className="spotlight-points">
-                <span><span>01</span> Ask in everyday language</span>
-                <span><span>02</span> Surface status, owners & handlers</span>
-                <span><span>03</span> Bring context closer to decisions</span>
-              </div>
-              <p className="small-note">Explore the interaction with fictional sample records.<br />This portfolio demo does not connect to IA3 or a live AI model.</p>
+              <b>
+                Accenture<span>↗</span>
+              </b>
+              <b>Commvault</b>
+              <b>
+                amazon<span className="amazon-smile">⌣</span>
+              </b>
             </div>
-            <Assistant />
+            <span>2015 — PRESENT</span>
+          </div>
+        </div>
+
+        <section
+          id="about"
+          className="section-wrap about-section section-space"
+        >
+          <Reveal>
+            <div className="section-marker">
+              <span>01 / THE PERSPECTIVE</span>
+              <span>MORE THAN THE NUMBERS</span>
+            </div>
+            <div className="about-layout">
+              <p className="eyebrow">
+                A LITTLE ABOUT ME <ArrowUpRight size={15} />
+              </p>
+              <div>
+                <h2>
+                  Good analytics tells you
+                  <br />
+                  what happened.
+                  <br />
+                  <span className="serif-word">
+                    Great analytics moves you forward.
+                  </span>
+                </h2>
+                <p className="about-copy">
+                  I’m Sonu, an analytics lead who enjoys connecting the dots
+                  others might miss. Across Accenture, Commvault, and Amazon,
+                  I’ve built data pipelines, made enterprise risk more visible,
+                  and brought AI into the audit conversation.
+                </p>
+                <p className="about-copy">
+                  My approach is simple: understand the problem, build with
+                  purpose, and make the result useful to the people who depend
+                  on it.
+                </p>
+              </div>
+            </div>
+            <Metrics />
           </Reveal>
         </section>
 
-        <section id="work" className="section-wrap section-space">
+        <section id="work" className="section-wrap section-space work-section">
           <Reveal>
+            <div className="section-marker">
+              <span>02 / SELECTED WORK</span>
+              <span>THINKING, MADE TANGIBLE</span>
+            </div>
             <div className="section-heading">
-              <div><span className="eyebrow">SELECTED WORK / 01—06</span><h2>Built for <span className="serif-word">impact.</span></h2></div>
-              <p>Where data engineering meets<br />business-critical decisions.</p>
+              <h2>
+                Small details.
+                <br />
+                <span className="serif-word">Meaningful shifts.</span>
+              </h2>
+              <p>
+                A selection of systems, workflows, and insights
+                <br />
+                built to make a measurable difference.
+              </p>
             </div>
             <Projects />
           </Reveal>
         </section>
 
+        <section id="innovation" className="innovation-section">
+          <div className="section-wrap">
+            <div className="section-marker">
+              <span>03 / THE NEXT CHAPTER</span>
+              <span>HUMAN QUESTIONS. CONNECTED INTELLIGENCE.</span>
+            </div>
+            <Reveal className="spotlight-layout">
+              <div>
+                <span className="eyebrow">
+                  <Sparkles size={14} /> AGENTIC AI × AUDIT INTELLIGENCE
+                </span>
+                <h2>
+                  What if your data
+                  <br />
+                  <span className="serif-word">could answer back?</span>
+                </h2>
+                <p className="section-copy">
+                  A simple question. A clearer way forward.
+                </p>
+                <p className="muted">
+                  I developed an Agentic AI Audit Assistant connected to the IA3
+                  status tracker. It brings audit status, ownership, and current
+                  handlers into a natural-language conversation.
+                </p>
+                <div className="spotlight-points">
+                  <span>
+                    <span>01</span> Ask in everyday language
+                  </span>
+                  <span>
+                    <span>02</span> Connect the audit context
+                  </span>
+                  <span>
+                    <span>03</span> Get straight to the next step
+                  </span>
+                </div>
+                <p className="small-note">
+                  Try the interaction here with fictional sample records.
+                  <br />
+                  This demo does not connect to IA3 or a live AI model.
+                </p>
+              </div>
+              <Assistant />
+            </Reveal>
+          </div>
+        </section>
+
         <section id="experience" className="section-wrap section-space">
           <Reveal>
+            <div className="section-marker">
+              <span>04 / THE JOURNEY</span>
+              <span>A DECADE OF BUILDING FORWARD</span>
+            </div>
             <div className="section-heading">
-              <div><span className="eyebrow">THE JOURNEY</span><h2>Experience that<br />connects the dots.</h2></div>
-              <p>Enterprise scale. Hands-on depth.<br />A consistent focus on outcomes.</p>
+              <h2>
+                Different chapters.
+                <br />
+                <span className="serif-word">One curious mind.</span>
+              </h2>
+              <p>
+                Enterprise scale. Hands-on depth.
+                <br />
+                People, platforms, and progress.
+              </p>
             </div>
             <Timeline />
+            <a className="resume-link" href="/Sonu-Garg-Resume.pdf" download>
+              For the full story, download my résumé <Download size={15} />
+            </a>
           </Reveal>
         </section>
 
         <section id="expertise" className="section-wrap section-space">
           <Reveal>
-            <span className="eyebrow">TOOLS, THINKING & TRUST</span>
-            <h2>A full spectrum<br />of <span className="gradient-text">intelligence.</span></h2>
+            <div className="section-marker">
+              <span>05 / THE TOOLKIT</span>
+              <span>TECHNICAL DEPTH. BUSINESS CONTEXT.</span>
+            </div>
+            <div className="section-heading">
+              <h2>
+                Three lenses.
+                <br />
+                <span className="serif-word">One connected view.</span>
+              </h2>
+              <p>
+                The right tools matter.
+                <br />
+                Knowing what to do with them matters more.
+              </p>
+            </div>
             <div className="competency-grid">
-              {[
-                { icon: Sparkles, title: 'AI & automation', copy: 'Smarter ways to move work forward.', skills: ['Agentic AI · LLM Integration', 'Power Automate', 'SharePoint Workflows'] },
-                { icon: Database, title: 'Data & engineering', copy: 'Reliable foundations. Useful insights.', skills: ['SQL · BigQuery · Python', 'Power BI · DAX · Tableau', 'ETL/ELT · Data Modelling'] },
-                { icon: ShieldCheck, title: 'Risk & governance', copy: 'Clarity where it matters most.', skills: ['Audit & Fraud-Risk Analytics', 'Risk & Controls', 'Root Cause Analysis · CAPA'] },
-              ].map(card => (
-                <article className="competency glass" key={card.title}>
-                  <card.icon size={25} />
+              {competencies.map((card) => (
+                <article className="competency" key={card.title}>
+                  <div className="competency-top">
+                    <card.icon size={27} />
+                    <span>{card.number}</span>
+                  </div>
                   <h3>{card.title}</h3>
                   <p>{card.copy}</p>
-                  <ul>{card.skills.map(skill => <li key={skill}>{skill}</li>)}</ul>
+                  <ul>
+                    {card.skills.map((skill) => (
+                      <li key={skill}>{skill}</li>
+                    ))}
+                  </ul>
                 </article>
               ))}
             </div>
             <div className="credentials-grid">
               <div>
-                <span className="eyebrow">CONTINUOUS LEARNING</span>
-                <h3>Certifications & learning</h3>
-                <div className="certifications">{['Agentic AI', 'Generative AI', 'Snowflake', 'Python', 'SQL', 'Advanced Excel · Amazon'].map(item => <span key={item}>{item}</span>)}</div>
-                <p className="education">BE, Electronics & Communication<br /><span>Jai Narain College of Technology, Bhopal</span></p>
+                <span className="eyebrow">ALWAYS A STUDENT</span>
+                <h3>Learning never stands still.</h3>
+                <div className="certifications">
+                  {[
+                    "Agentic AI",
+                    "Generative AI",
+                    "Snowflake",
+                    "Python",
+                    "SQL",
+                    "Advanced Excel · Amazon",
+                  ].map((item) => (
+                    <span key={item}>{item}</span>
+                  ))}
+                </div>
+                <p className="education">
+                  BE, Electronics & Communication
+                  <br />
+                  <span>Jai Narain College of Technology, Bhopal</span>
+                </p>
               </div>
               <div className="recognition">
-                <span className="eyebrow">RECOGNIZED ALONG THE WAY</span>
-                <div><Award /><p><strong>Accenture Encore Award</strong><span>FY26 Q1 · Star of the Business</span></p></div>
-                <div><Award /><p><strong>Amazon Star Trek & A-Team Awards</strong><span>Process excellence & successful launches</span></p></div>
+                <span className="eyebrow">A FEW THINGS I’M PROUD OF</span>
+                <div>
+                  <Award />
+                  <p>
+                    <strong>Accenture Encore Award</strong>
+                    <span>FY26 Q1 · Star of the Business</span>
+                  </p>
+                </div>
+                <div>
+                  <Award />
+                  <p>
+                    <strong>Amazon Star Trek & A-Team Awards</strong>
+                    <span>Process excellence & successful launches</span>
+                  </p>
+                </div>
               </div>
             </div>
           </Reveal>
         </section>
 
-        <section id="contact" className="section-wrap contact-section">
-          <Reveal>
-            <span className="eyebrow cyan">LET’S BUILD WHAT’S NEXT</span>
-            <h2>Your next challenge.<br /><span className="serif-word">Our next conversation.</span></h2>
-            <p>From executive BI to AI-enabled audit workflows,<br />let’s turn complex questions into meaningful progress.</p>
-            <a className="contact-email" href="mailto:sonugarg072@gmail.com">sonugarg072@gmail.com <ArrowUpRight /></a>
-            <div className="contact-links">
-              <ContactButton />
-              <a href="https://www.linkedin.com/in/sonu-garg95/" target="_blank" rel="noopener noreferrer"><Linkedin size={15} /> LinkedIn <ArrowUpRight size={14} /></a>
-              <a href="tel:+919399815359"><Mail size={15} /> +91 9399815359</a>
-            </div>
-          </Reveal>
+        <section id="contact" className="contact-section">
+          <div className="section-wrap">
+            <Reveal>
+              <div className="contact-top">
+                <span className="eyebrow">
+                  <span className="status-dot" /> GOOD WORK STARTS WITH A
+                  CONVERSATION
+                </span>
+                <span className="contact-star" aria-hidden="true">
+                  ✳
+                </span>
+              </div>
+              <h2>
+                Something complex
+                <br />
+                on your mind?
+                <br />
+                <a href="mailto:sonugarg072@gmail.com">
+                  <span className="serif-word">Let’s make it clear.</span>
+                  <ArrowUpRight />
+                </a>
+              </h2>
+              <div className="contact-bottom">
+                <a
+                  className="contact-email"
+                  href="mailto:sonugarg072@gmail.com"
+                >
+                  sonugarg072@gmail.com <ArrowUpRight size={17} />
+                </a>
+                <div className="contact-links">
+                  <ContactButton />
+                  <a
+                    href="https://www.linkedin.com/in/sonu-garg95/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Linkedin size={14} /> LinkedIn <ArrowUpRight size={14} />
+                  </a>
+                  <a href="tel:+919399815359">
+                    <Phone size={14} /> Call me
+                  </a>
+                </div>
+              </div>
+            </Reveal>
+          </div>
         </section>
       </main>
       <footer className="section-wrap">
-        <a className="logo" href="#home">sg<span>.</span></a>
-        <p>© {new Date().getFullYear()} Sonu Garg · Built with clarity & intent.</p>
-        <a href="#home">Back to top ↑</a>
+        <a className="wordmark" href="#home">
+          sonu garg<span>✳</span>
+        </a>
+        <p>© {new Date().getFullYear()} Sonu Garg · Thoughtfully connected.</p>
+        <a href="#home">BACK TO TOP ↑</a>
       </footer>
     </>
   );
