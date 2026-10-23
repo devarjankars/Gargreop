@@ -1,9 +1,8 @@
 "use client";
+import { BrandStar } from "./brand-star";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
-
-const INTRO_KEY = "sonu-arrival-v1";
 
 /** A short, skippable brand introduction. The page never depends on it to render. */
 export function Arrival() {
@@ -21,39 +20,32 @@ export function Arrival() {
     dialog.current?.close();
     document.documentElement.dataset.arrival = "complete";
     window.dispatchEvent(new Event("portfolio:arrived"));
-    try {
-      sessionStorage.setItem(INTRO_KEY, "seen");
-    } catch {
-      /* Storage is optional. */
-    }
   }, []);
 
   const leave = useCallback(() => {
     if (finished.current) return;
     setLeaving(true);
-    timers.current.push(setTimeout(complete, 480));
+    timers.current.push(setTimeout(complete, 340));
   }, [complete]);
 
   useEffect(() => {
     finished.current = false;
-    let seen = false;
-    try {
-      seen = sessionStorage.getItem(INTRO_KEY) === "seen";
-    } catch {
-      /* Private browsing may block storage. */
-    }
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (seen || preference.matches || !dialog.current?.showModal) {
+    if (preference.matches || !dialog.current?.showModal) {
       complete();
       return;
     }
 
     document.documentElement.dataset.arrival = "running";
+    setStage(0);
+    setLeaving(false);
     dialog.current.showModal();
-    skip.current?.focus({ preventScroll: true });
-    timers.current.push(setTimeout(() => setStage(1), 560));
-    timers.current.push(setTimeout(() => setStage(2), 1120));
-    timers.current.push(setTimeout(leave, 1720));
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      skip.current?.focus({ preventScroll: true });
+    }
+    timers.current.push(setTimeout(() => setStage(1), 450));
+    timers.current.push(setTimeout(() => setStage(2), 900));
+    timers.current.push(setTimeout(leave, 1450));
     const onMotionChange = () => {
       if (preference.matches) complete();
     };
@@ -69,6 +61,8 @@ export function Arrival() {
   return (
     <dialog
       ref={dialog}
+      tabIndex={-1}
+      autoFocus
       className={`arrival ${leaving ? "arrival-leaving" : ""}`}
       aria-label="Welcome to Sonu Garg’s portfolio"
       onCancel={(event) => {
@@ -79,7 +73,10 @@ export function Arrival() {
       <div className="arrival-shell">
         <div className="arrival-top">
           <span className="wordmark">
-            sonu garg<span>✳︎</span>
+            sonu garg
+            <span>
+              <BrandStar />
+            </span>
           </span>
           <span>ANALYTICS WITH INTENT</span>
         </div>

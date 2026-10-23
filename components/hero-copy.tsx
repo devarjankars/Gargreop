@@ -61,7 +61,7 @@ export function HeroCopy() {
     if (paused || reduced || !arrived || !visible) return;
     const interval = setInterval(
       () => setCurrent((index) => (index + 1) % perspectives.length),
-      4300,
+      3400,
     );
     return () => clearInterval(interval);
   }, [paused, reduced, arrived, visible]);

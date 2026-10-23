@@ -1,4 +1,5 @@
 "use client";
+import { BrandStar } from "./brand-star";
 import {
   useEffect,
   useRef,
@@ -63,7 +64,10 @@ export function Header() {
     <header className="header">
       <div className="nav-wrap">
         <a href="#home" aria-label="Sonu Garg home" className="wordmark">
-          sonu garg<span>✳︎</span>
+          sonu garg
+          <span>
+            <BrandStar />
+          </span>
         </a>
         <nav
           aria-label="Main navigation"
@@ -98,63 +102,109 @@ export function Header() {
     </header>
   );
 }
-export function Metrics() {
-  const [active, setActive] = useState(false);
+const metricItems = [
+  {
+    target: 11,
+    suffix: "+",
+    label: "Years of experience",
+    note: "Built on real-world complexity",
+    final: "11+",
+  },
+  {
+    target: 50,
+    upper: 60,
+    label: "Audits supported / year",
+    note: "Analytics at enterprise scale",
+    final: "50–60",
+  },
+  {
+    target: 40,
+    suffix: "%",
+    label: "Less report preparation time",
+    note: "More room for meaningful work",
+    final: "40%",
+  },
+];
+
+function ImpactMetric({ item }: { item: (typeof metricItems)[number] }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
+  // Render the true value on the server: unavailable JS never leaves a zero.
+  const [progress, setProgress] = useState(1);
   useEffect(() => {
-    const observer = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) {
-        setActive(true);
-        observer.disconnect();
-      }
-    });
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-  useEffect(() => {
-    if (!active) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const element = ref.current;
+    if (!element || typeof IntersectionObserver === "undefined") return;
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let frame = 0;
+    let inside = false;
+    const finish = () => {
+      cancelAnimationFrame(frame);
       setProgress(1);
-      return;
-    }
-    let frame: number;
-    const start = performance.now();
-    const tick = (now: number) => {
-      const value = Math.min((now - start) / 1100, 1);
-      setProgress(1 - Math.pow(1 - value, 3));
-      if (value < 1) frame = requestAnimationFrame(tick);
     };
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [active]);
+    const animate = () => {
+      cancelAnimationFrame(frame);
+      if (motion.matches || document.hidden) {
+        setProgress(1);
+        return;
+      }
+      setProgress(0);
+      let start: number | null = null;
+      const tick = (now: number) => {
+        if (start === null) start = now;
+        const elapsed = Math.min((now - start) / 1250, 1);
+        setProgress(1 - Math.pow(1 - elapsed, 3));
+        if (elapsed < 1) frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
+    };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const visible = entry.isIntersecting && entry.intersectionRatio >= 0.35;
+        if (visible && !inside) animate();
+        else if (!visible && inside) finish();
+        inside = visible;
+      },
+      { threshold: [0, 0.35], rootMargin: "0px 0px -30px 0px" },
+    );
+    observer.observe(element);
+    const onMotion = () => {
+      if (motion.matches) finish();
+    };
+    const onVisibility = () => {
+      if (document.hidden) finish();
+      else if (inside) animate();
+    };
+    motion.addEventListener("change", onMotion);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+      motion.removeEventListener("change", onMotion);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, []);
+  const value = item.upper
+    ? `${Math.round(item.target * progress)}–${Math.round(item.upper * progress)}`
+    : `${Math.round(item.target * progress)}${item.suffix}`;
   return (
-    <div ref={ref} className="metrics">
-      {[
-        {
-          value: `${Math.round(11 * progress)}+`,
-          label: "Years of experience",
-          note: "Built on real-world complexity",
-        },
-        {
-          value: progress === 1 ? "50–60" : `${Math.round(50 * progress)}`,
-          label: "Audits supported / year",
-          note: "Analytics at enterprise scale",
-        },
-        {
-          value: `${Math.round(40 * progress)}%`,
-          label: "Less report preparation time",
-          note: "More room for meaningful work",
-        },
-      ].map((x) => (
-        <div className="metric" key={x.label}>
-          <strong>
-            {x.value}
-            <span>↗</span>
-          </strong>
-          <p>{x.label}</p>
-          <small>{x.note}</small>
-        </div>
+    <div className="metric" ref={ref} data-counting={progress < 1}>
+      <strong>
+        <span className="sr-only">{item.final}</span>
+        <span className="metric-value" aria-hidden="true">
+          {value}
+        </span>
+        <ArrowUpRight className="metric-arrow" size={22} aria-hidden="true" />
+      </strong>
+      <p>{item.label}</p>
+      <small>{item.note}</small>
+    </div>
+  );
+}
+
+export function Metrics() {
+  return (
+    <div className="metrics">
+      {metricItems.map((item) => (
+        <ImpactMetric key={item.label} item={item} />
       ))}
     </div>
   );

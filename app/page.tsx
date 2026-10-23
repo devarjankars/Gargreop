@@ -20,6 +20,7 @@ import {
   ContactButton,
 } from "@/components/interactive";
 import { SignalSculpture } from "@/components/signal-sculpture";
+import { BrandStar } from "@/components/brand-star";
 import { HeroCopy } from "@/components/hero-copy";
 
 const competencies = [
@@ -93,7 +94,10 @@ export default function Home() {
             <span>EXPERIENCE SHAPED AT</span>
             <div>
               <b>
-                Accenture<span>↗</span>
+                Accenture
+                <span>
+                  <ArrowUpRight size={11} />
+                </span>
               </b>
               <b>Commvault</b>
               <b>
@@ -140,8 +144,8 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <Metrics />
           </Reveal>
+          <Metrics />
         </section>
 
         <section id="work" className="section-wrap section-space work-section">
@@ -324,7 +328,7 @@ export default function Home() {
                   CONVERSATION
                 </span>
                 <span className="contact-star" aria-hidden="true">
-                  ✳︎
+                  <BrandStar />
                 </span>
               </div>
               <h2>
@@ -364,7 +368,10 @@ export default function Home() {
       </main>
       <footer className="section-wrap">
         <a className="wordmark" href="#home">
-          sonu garg<span>✳︎</span>
+          sonu garg
+          <span>
+            <BrandStar />
+          </span>
         </a>
         <p>© {new Date().getFullYear()} Sonu Garg · Thoughtfully connected.</p>
         <a href="#home">BACK TO TOP ↑</a>
