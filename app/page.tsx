@@ -1,9 +1,141 @@
-import { ArrowUpRight, ArrowDown, Sparkles, Layers3, Database, ShieldCheck, Award, MapPin, Linkedin, Mail } from 'lucide-react';
+import { ArrowUpRight, ArrowDown, Sparkles, Database, ShieldCheck, Award, MapPin, Linkedin, Mail } from 'lucide-react';
 import { Header, Reveal, Metrics, Assistant, Projects, Timeline, ContactButton } from '@/components/interactive';
-export default function Home(){return <><Header/><main id="home"><section className="hero section-wrap"><div className="hero-glow" aria-hidden="true"/><div className="hero-topline"><span className="eyebrow"><span className="status-dot"/> INTELLIGENCE WITH INTENT</span><span className="location"><MapPin size={13}/> Bengaluru, India</span></div><div className="hero-layout"><div><h1>Complex data.<br/>Clear decisions.<br/><span>Real impact.</span></h1><p className="hero-intro">I’m <strong>Sonu Garg</strong> — a BI & Analytics Lead bringing clarity to enterprise risk, audit intelligence, and the next generation of AI-powered workflows.</p><div className="hero-actions"><a className="button primary" href="#work">Explore my work <ArrowUpRight size={18}/></a><a className="text-link" href="#contact">Let’s talk <ArrowRightIcon/></a></div><div className="hero-credentials"><span>11+ years of turning insight into action</span><div><b>Accenture</b><i/><b>Commvault</b><i/><b className="amazon">amazon<span>⌣</span></b></div></div></div><div className="hero-art" aria-label="Illustration of connected analytics and intelligence"><div className="orbit orbit-one"/><div className="orbit orbit-two"/><div className="orbit orbit-three"/><div className="orbit-core"><Layers3 size={54} strokeWidth={1}/><span>INSIGHT ENGINE</span></div><div className="floating-label label-one"><span className="tiny-dot"/> Agentic intelligence</div><div className="floating-label label-two"><ShieldCheck size={16}/> Risk, made visible</div><div className="floating-label label-three"><Database size={16}/> Data → decisions</div><span className="art-coordinate">CONNECTED THINKING / 01</span><div className="art-spark spark-one"/><div className="art-spark spark-two"/></div></div><Metrics/><a className="scroll-cue" href="#innovation"><ArrowDown size={13}/> SCROLL TO DISCOVER</a></section>
-<section id="innovation" className="section-wrap section-space"><Reveal className="spotlight-layout"><div><span className="eyebrow cyan"><Sparkles size={14}/> THE NEXT CHAPTER OF ANALYTICS</span><h2>Less searching.<br/>More <span className="gradient-text">knowing.</span></h2><p className="section-copy">Audit intelligence should be a conversation. Not a scavenger hunt.</p><p className="muted leading-relaxed">I built an Agentic AI Audit Assistant connected to the IA3 status tracker, making audit status and ownership accessible through natural-language queries.</p><div className="spotlight-points"><span><span>01</span> Ask in everyday language</span><span><span>02</span> Surface status, owners & handlers</span><span><span>03</span> Bring context closer to decisions</span></div><p className="small-note">Explore the interaction with fictional sample records.<br/>This portfolio demo does not connect to IA3 or a live AI model.</p></div><Assistant/></Reveal></section>
-<section id="work" className="section-wrap section-space"><Reveal><div className="section-heading"><div><span className="eyebrow">SELECTED WORK / 01—06</span><h2>Built for <span className="serif-word">impact.</span></h2></div><p>Where data engineering meets<br/>business-critical decisions.</p></div><Projects/></Reveal></section>
-<section id="experience" className="section-wrap section-space"><Reveal><div className="section-heading"><div><span className="eyebrow">THE JOURNEY</span><h2>Experience that<br/>connects the dots.</h2></div><p>Enterprise scale. Hands-on depth.<br/>A consistent focus on outcomes.</p></div><Timeline/></Reveal></section>
-<section id="expertise" className="section-wrap section-space"><Reveal><span className="eyebrow">TOOLS, THINKING & TRUST</span><h2>A full spectrum<br/>of <span className="gradient-text">intelligence.</span></h2><div className="competency-grid">{[{icon:Sparkles,title:'AI & automation',copy:'Smarter ways to move work forward.',skills:['Agentic AI · LLM Integration','Power Automate','SharePoint Workflows']},{icon:Database,title:'Data & engineering',copy:'Reliable foundations. Useful insights.',skills:['SQL · BigQuery · Python','Power BI · DAX · Tableau','ETL/ELT · Data Modelling']},{icon:ShieldCheck,title:'Risk & governance',copy:'Clarity where it matters most.',skills:['Audit & Fraud-Risk Analytics','Risk & Controls','Root Cause Analysis · CAPA']}].map(c=><article className="competency glass" key={c.title}><c.icon size={25}/><h3>{c.title}</h3><p>{c.copy}</p><ul>{c.skills.map(s=><li key={s}>{s}</li>)}</ul></article>)}</div><div className="credentials-grid"><div><span className="eyebrow">CONTINUOUS LEARNING</span><h3>Certifications & learning</h3><div className="certifications">{['Agentic AI','Generative AI','Snowflake','Python','SQL','Advanced Excel · Amazon'].map(s=><span key={s}>{s}</span>)}</div><p className="education">BE, Electronics & Communication<br/><span>Jai Narain College of Technology, Bhopal</span></p></div><div className="recognition"><span className="eyebrow">RECOGNIZED ALONG THE WAY</span><div><Award/><p><strong>Accenture Encore Award</strong><span>FY26 Q1 · Star of the Business</span></p></div><div><Award/><p><strong>Amazon Star Trek & A-Team Awards</strong><span>Process excellence & successful launches</span></p></div></div></div></Reveal></section>
-<section id="contact" className="section-wrap contact-section"><Reveal><span className="eyebrow cyan">LET’S BUILD WHAT’S NEXT</span><h2>Your next challenge.<br/><span className="serif-word">Our next conversation.</span></h2><p>From executive BI to AI-enabled audit workflows,<br/>let’s turn complex questions into meaningful progress.</p><a className="contact-email" href="mailto:sonugarg072@gmail.com">sonugarg072@gmail.com <ArrowUpRight/></a><div className="contact-links"><ContactButton/><a href="https://www.linkedin.com/in/sonu-garg95/" target="_blank" rel="noopener noreferrer"><Linkedin size={15}/> LinkedIn <ArrowUpRight size={14}/></a><a href="tel:+919399815359"><Mail size={15}/> +91 9399815359</a></div></Reveal></section></main><footer className="section-wrap"><a className="logo" href="#home">sg<span>.</span></a><p>© {new Date().getFullYear()} Sonu Garg · Built with clarity & intent.</p><a href="#home">Back to top ↑</a></footer></>;}
-function ArrowRightIcon(){return <ArrowUpRight size={16}/>;}
+
+export default function Home() {
+  return (
+    <>
+      <Header />
+      <main id="home">
+        <section className="hero section-wrap">
+          <div className="hero-glow" aria-hidden="true" />
+          <div className="hero-topline">
+            <span className="eyebrow"><span className="status-dot" /> BI & ANALYTICS LEAD · 11+ YEARS</span>
+            <span className="location"><MapPin size={13} /> Bengaluru, India</span>
+          </div>
+          <div className="hero-layout">
+            <div className="hero-copy">
+              <h1>Complex data.<br />Clear decisions.<br /><span>Real impact.</span></h1>
+              <p className="hero-intro">I’m <strong>Sonu Garg</strong> — a BI & Analytics Lead bringing clarity to enterprise risk, audit intelligence, and the next generation of AI-powered workflows.</p>
+              <div className="hero-actions">
+                <a className="button primary" href="#work">Explore my work <ArrowUpRight size={18} /></a>
+                <a className="text-link" href="#contact">Let’s talk <ArrowUpRight size={16} /></a>
+              </div>
+              <div className="hero-credentials">
+                <span>Turning insight into action at</span>
+                <div><b>Accenture</b><i /><b>Commvault</b><i /><b className="amazon">amazon<span>⌣</span></b></div>
+              </div>
+            </div>
+            <div className="hero-art" role="img" aria-label="Portrait placeholder, ready for a profile photo">
+              <div className="portrait-frame">
+                <div className="portrait-grid" />
+                <div className="portrait-glow" />
+                <div className="portrait-halo" />
+                <div className="portrait-orbit" />
+                <span className="portrait-monogram" aria-hidden="true">SG</span>
+                <div className="portrait-caption">
+                  <div><strong>People first.<br />Insight always.</strong><span>ANALYTICS · STRATEGY · IMPACT</span></div>
+                  <Sparkles size={20} />
+                </div>
+              </div>
+              <span className="portrait-tag"><span className="tiny-dot" /> YOUR PORTRAIT, WHEN READY</span>
+              <span className="portrait-index">PROFILE / 01</span>
+            </div>
+          </div>
+          <Metrics />
+          <a className="scroll-cue" href="#innovation"><ArrowDown size={13} /> SCROLL TO DISCOVER</a>
+        </section>
+
+        <section id="innovation" className="section-wrap section-space">
+          <Reveal className="spotlight-layout">
+            <div>
+              <span className="eyebrow cyan"><Sparkles size={14} /> THE NEXT CHAPTER OF ANALYTICS</span>
+              <h2>Less searching.<br />More <span className="gradient-text">knowing.</span></h2>
+              <p className="section-copy">Audit intelligence should be a conversation. Not a scavenger hunt.</p>
+              <p className="muted leading-relaxed">I built an Agentic AI Audit Assistant connected to the IA3 status tracker, making audit status and ownership accessible through natural-language queries.</p>
+              <div className="spotlight-points">
+                <span><span>01</span> Ask in everyday language</span>
+                <span><span>02</span> Surface status, owners & handlers</span>
+                <span><span>03</span> Bring context closer to decisions</span>
+              </div>
+              <p className="small-note">Explore the interaction with fictional sample records.<br />This portfolio demo does not connect to IA3 or a live AI model.</p>
+            </div>
+            <Assistant />
+          </Reveal>
+        </section>
+
+        <section id="work" className="section-wrap section-space">
+          <Reveal>
+            <div className="section-heading">
+              <div><span className="eyebrow">SELECTED WORK / 01—06</span><h2>Built for <span className="serif-word">impact.</span></h2></div>
+              <p>Where data engineering meets<br />business-critical decisions.</p>
+            </div>
+            <Projects />
+          </Reveal>
+        </section>
+
+        <section id="experience" className="section-wrap section-space">
+          <Reveal>
+            <div className="section-heading">
+              <div><span className="eyebrow">THE JOURNEY</span><h2>Experience that<br />connects the dots.</h2></div>
+              <p>Enterprise scale. Hands-on depth.<br />A consistent focus on outcomes.</p>
+            </div>
+            <Timeline />
+          </Reveal>
+        </section>
+
+        <section id="expertise" className="section-wrap section-space">
+          <Reveal>
+            <span className="eyebrow">TOOLS, THINKING & TRUST</span>
+            <h2>A full spectrum<br />of <span className="gradient-text">intelligence.</span></h2>
+            <div className="competency-grid">
+              {[
+                { icon: Sparkles, title: 'AI & automation', copy: 'Smarter ways to move work forward.', skills: ['Agentic AI · LLM Integration', 'Power Automate', 'SharePoint Workflows'] },
+                { icon: Database, title: 'Data & engineering', copy: 'Reliable foundations. Useful insights.', skills: ['SQL · BigQuery · Python', 'Power BI · DAX · Tableau', 'ETL/ELT · Data Modelling'] },
+                { icon: ShieldCheck, title: 'Risk & governance', copy: 'Clarity where it matters most.', skills: ['Audit & Fraud-Risk Analytics', 'Risk & Controls', 'Root Cause Analysis · CAPA'] },
+              ].map(card => (
+                <article className="competency glass" key={card.title}>
+                  <card.icon size={25} />
+                  <h3>{card.title}</h3>
+                  <p>{card.copy}</p>
+                  <ul>{card.skills.map(skill => <li key={skill}>{skill}</li>)}</ul>
+                </article>
+              ))}
+            </div>
+            <div className="credentials-grid">
+              <div>
+                <span className="eyebrow">CONTINUOUS LEARNING</span>
+                <h3>Certifications & learning</h3>
+                <div className="certifications">{['Agentic AI', 'Generative AI', 'Snowflake', 'Python', 'SQL', 'Advanced Excel · Amazon'].map(item => <span key={item}>{item}</span>)}</div>
+                <p className="education">BE, Electronics & Communication<br /><span>Jai Narain College of Technology, Bhopal</span></p>
+              </div>
+              <div className="recognition">
+                <span className="eyebrow">RECOGNIZED ALONG THE WAY</span>
+                <div><Award /><p><strong>Accenture Encore Award</strong><span>FY26 Q1 · Star of the Business</span></p></div>
+                <div><Award /><p><strong>Amazon Star Trek & A-Team Awards</strong><span>Process excellence & successful launches</span></p></div>
+              </div>
+            </div>
+          </Reveal>
+        </section>
+
+        <section id="contact" className="section-wrap contact-section">
+          <Reveal>
+            <span className="eyebrow cyan">LET’S BUILD WHAT’S NEXT</span>
+            <h2>Your next challenge.<br /><span className="serif-word">Our next conversation.</span></h2>
+            <p>From executive BI to AI-enabled audit workflows,<br />let’s turn complex questions into meaningful progress.</p>
+            <a className="contact-email" href="mailto:sonugarg072@gmail.com">sonugarg072@gmail.com <ArrowUpRight /></a>
+            <div className="contact-links">
+              <ContactButton />
+              <a href="https://www.linkedin.com/in/sonu-garg95/" target="_blank" rel="noopener noreferrer"><Linkedin size={15} /> LinkedIn <ArrowUpRight size={14} /></a>
+              <a href="tel:+919399815359"><Mail size={15} /> +91 9399815359</a>
+            </div>
+          </Reveal>
+        </section>
+      </main>
+      <footer className="section-wrap">
+        <a className="logo" href="#home">sg<span>.</span></a>
+        <p>© {new Date().getFullYear()} Sonu Garg · Built with clarity & intent.</p>
+        <a href="#home">Back to top ↑</a>
+      </footer>
+    </>
+  );
+}
