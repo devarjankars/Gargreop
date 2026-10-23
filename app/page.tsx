@@ -21,6 +21,7 @@ import {
 } from "@/components/interactive";
 import { SignalSculpture } from "@/components/signal-sculpture";
 import { BrandStar } from "@/components/brand-star";
+import { SignalJourney } from "@/components/signal-journey";
 import { HeroCopy } from "@/components/hero-copy";
 
 const competencies = [
@@ -147,6 +148,8 @@ export default function Home() {
           </Reveal>
           <Metrics />
         </section>
+
+        <SignalJourney />
 
         <section id="work" className="section-wrap section-space work-section">
           <Reveal>

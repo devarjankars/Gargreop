@@ -30,7 +30,10 @@ Deploy to a Node-compatible host or import the repository into Vercel. The lockf
 - `components/arrival.tsx`: skippable native-dialog introduction.
 - `components/hero-copy.tsx`: coordinated animated headline and perspective controls.
 - `components/interactive.tsx`: navigation, independently observed impact counters, project filters and details, timeline, assistant demo, and contact copy.
-- `components/ambient-motion.tsx`: pointer halo, restrained project tilt, and scroll-driven sculpture depth.
+- `components/ambient-motion.tsx`: fading cursor constellation, tap ripples, contextual cursor, project tilt, and scroll-driven sculpture depth.
+- `components/signal-journey.tsx`: scroll-linked Data → Context → Clarity story.
+- `components/scroll-compass.tsx`: desktop chapter rail and touch-friendly section guide.
+- `app/discovery.css`: discovery interactions and responsive story layouts.
 - `components/signal-sculpture.tsx`: original CSS 3D data-ribbon sphere, with pause control.
 - `components/project-artwork.tsx`: original illustrative project visuals, not internal screenshots.
 - `components/brand-star.tsx`: platform-independent SVG identity mark.
@@ -56,3 +59,15 @@ The 40% impact metric refers to report preparation time. Dap’er’s separate 4
 ## Validation
 
 Production build and TypeScript checks pass. Chromium touch emulation at 390×844, 375×667, 320×568, and 844×390 verifies intro placement, dismissal without scroll jumps, replay on reload, visible counter transitions and re-entry, all headline words fitting, and no custom touch cursor. Desktop checks cover the cursor halo, hover response, card tilt, scroll depth, and reduced-motion overrides. Reduced-motion and no-JavaScript checks verify the true final metric values. These are browser-emulation checks, not physical iPhone/Safari certification.
+
+## Signal discovery interactions
+
+The desktop cursor leaves a short constellation trail and shows contextual OPEN or READ labels over actionable controls. A bounded canvas particle pool (at most 40 particles) fades after movement stops; the render loop sleeps when there is nothing to update. The canvas is capped at 1.5 device pixels per CSS pixel, stays pointer-transparent, and clears when the tab becomes hidden. Native cursors, keyboard navigation, links, and scrolling remain available.
+
+Touch devices use a brief tap ripple instead of a mouse follower. Pointer cancellation distinguishes native pan gestures from taps, and input fields are excluded. No sensor access, device permissions, or gesture interception is used.
+
+The Method section traces an illustrated signal from Data to Context to Clarity as the visitor scrolls. On taller screens, the story panel briefly sticks while the page scrolls normally. At heights of 640px or less, it becomes an ordinary flowing section and still updates the path with scroll. Reduced-motion and no-JavaScript modes keep all three stages readable without pinning.
+
+A desktop chapter rail tracks page progress and links directly to sections. Narrow screens and coarse-pointer devices get a compact bottom guide with the current chapter and a next-section link. The guide stays inert and outside keyboard navigation until it becomes visible; footer spacing leaves room for it.
+
+Browser checks verify drawn cursor-trail pixels and their expiry, contextual labels, all three story stages, chapter anchors, touch-ripple drawing and expiry, no mobile follower, and story bounds at 390×844, 375×667, 320×568, and 844×390. No horizontal overflow or browser errors were observed. Reduced-motion and no-JavaScript story fallbacks are checked separately.

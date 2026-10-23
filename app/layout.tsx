@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Arrival } from "@/components/arrival";
+import { ScrollCompass } from "@/components/scroll-compass";
 import { AmbientMotion } from "@/components/ambient-motion";
 import "./globals.css";
 import "./refinements.css";
+import "./discovery.css";
 
 const manrope = localFont({
   src: "../node_modules/@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2",
@@ -32,6 +34,7 @@ export default function RootLayout({
         <Arrival />
         <AmbientMotion />
         {children}
+        <ScrollCompass />
       </body>
     </html>
   );
