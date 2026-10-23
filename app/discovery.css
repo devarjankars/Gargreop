@@ -1,0 +1,531 @@
+/* Signal-led discovery: cursor constellations, scroll storytelling, touch feedback. */
+.signal-trail {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.cursor-orbit {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  left: -21px;
+  top: -21px;
+  border: 1px dashed #a697bd55;
+  border-radius: 50%;
+  transition:
+    transform 0.35s,
+    opacity 0.35s;
+  opacity: 0.6;
+}
+.cursor-follower[data-interactive="true"] .cursor-orbit {
+  transform: rotate(40deg) scale(1.4);
+  opacity: 0;
+}
+.cursor-label {
+  position: absolute;
+  top: 18px;
+  left: -24px;
+  min-width: 48px;
+  text-align: center;
+  font-size: 6px;
+  letter-spacing: 1.5px;
+  color: #786298;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.2s,
+    transform 0.25s;
+}
+.cursor-follower[data-interactive="true"] .cursor-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Only the story panel pins; document scrolling remains entirely native. */
+.signal-journey {
+  margin-top: 70px;
+  padding-top: 35px;
+  padding-bottom: 30px;
+}
+.signal-journey[data-enhanced="true"] {
+  height: 125svh;
+  min-height: 840px;
+}
+.journey-sticky {
+  padding-top: 12px;
+}
+.signal-journey[data-enhanced="true"] .journey-sticky {
+  position: sticky;
+  top: 100px;
+  height: min(650px, calc(100svh - 120px));
+  min-height: 440px;
+}
+.journey-sticky .section-marker {
+  margin-bottom: 28px;
+}
+.journey-sticky .section-marker > span:last-child {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.journey-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 25px;
+}
+.journey-heading h2 {
+  font-size: clamp(32px, 3.7vw, 53px);
+}
+.journey-heading > p {
+  font-size: 11px;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.journey-graph {
+  position: relative;
+  height: 210px;
+  margin: 10px 0 28px;
+  perspective: 900px;
+}
+.journey-graph:before {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  inset: 15% 10%;
+  background: radial-gradient(ellipse, #d9cdef45, transparent 67%);
+  transform: translateX(calc((var(--journey-progress, 0) - 0.5) * 80px));
+}
+.journey-graph svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform: rotateX(calc((var(--journey-progress, 0) - 0.5) * 8deg));
+}
+.journey-input {
+  fill: none;
+  stroke: #9d8fb62e;
+  stroke-width: 1;
+}
+.journey-base {
+  fill: none;
+  stroke: #b2a5c83d;
+  stroke-width: 1.5;
+}
+.journey-progress {
+  fill: none;
+  stroke: url(#journey-gradient);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.journey-node circle:first-child {
+  fill: var(--paper);
+  stroke: #b4a7c94a;
+  stroke-width: 1;
+  transition:
+    fill 0.4s,
+    stroke 0.4s;
+}
+.journey-node circle:last-child {
+  fill: #b8aec9;
+  transition: fill 0.4s;
+}
+.journey-node.reached circle:first-child {
+  fill: #e7e1f1;
+  stroke: #9c82ba80;
+}
+.journey-node.reached circle:last-child {
+  fill: #9981b5;
+}
+.journey-signal {
+  fill: #b89171;
+  stroke: var(--paper);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 9px #b99ac188);
+}
+.journey-graph-labels {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: 12%;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: #a19aac;
+}
+.journey-graph-labels span {
+  width: 80px;
+  text-align: center;
+}
+.journey-graph-labels .active {
+  color: var(--accent);
+}
+.journey-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+}
+.journey-step {
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  position: relative;
+}
+.journey-step:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  height: 1px;
+  width: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s;
+}
+.journey-step.active:before {
+  transform: scaleX(1);
+}
+.journey-step > span {
+  font-size: 8px;
+  letter-spacing: 1.2px;
+  color: #94899f;
+}
+.journey-step h3 {
+  font-size: 20px;
+  font-weight: 450;
+  letter-spacing: -0.5px;
+  margin: 14px 0 10px;
+  color: #66677d;
+  transition:
+    color 0.4s,
+    transform 0.4s;
+}
+.journey-step.active h3 {
+  color: var(--ink);
+  transform: translateY(-2px);
+}
+.journey-step p {
+  font-size: 11px;
+  line-height: 1.9;
+  color: #858093;
+  margin: 0;
+  max-width: 300px;
+}
+.journey-step.active p {
+  color: var(--muted);
+}
+.journey-footnote {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+  margin-top: 30px;
+  font-size: 7px;
+  letter-spacing: 1px;
+  color: #8f849f;
+}
+.journey-footnote > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  color: #74638e;
+}
+/* A quiet chapter rail becomes a compact thumb-friendly guide on mobile. */
+.scroll-compass {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  z-index: 35;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.35s;
+  pointer-events: none;
+}
+.scroll-compass[data-visible="true"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+.chapter-rail {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px 0;
+}
+.chapter-track {
+  position: absolute;
+  right: 13px;
+  top: 21px;
+  bottom: 21px;
+  width: 1px;
+  background: #a99ac92b;
+}
+.chapter-track > span {
+  display: block;
+  width: 1px;
+  height: 100%;
+  background: #9c84ba99;
+  transform: scaleY(var(--page-progress, 0));
+  transform-origin: top;
+}
+.chapter-point {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 28px;
+  height: 27px;
+  position: relative;
+}
+.chapter-dot {
+  width: 5px;
+  height: 5px;
+  margin-right: 11px;
+  border-radius: 50%;
+  background: #b3a7c6;
+  border: 1px solid var(--paper);
+  transition:
+    transform 0.25s,
+    background 0.25s;
+}
+.chapter-point.active .chapter-dot {
+  background: var(--accent);
+  transform: scale(1.55);
+}
+.chapter-name {
+  position: absolute;
+  right: 30px;
+  white-space: nowrap;
+  border: 1px solid #cfc6de77;
+  border-radius: 20px;
+  padding: 7px 10px;
+  background: #f4f3f8ed;
+  font-size: 8px;
+  letter-spacing: 0.3px;
+  color: #7d6c97;
+  opacity: 0;
+  transform: translateX(4px);
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
+  pointer-events: none;
+}
+.chapter-point:hover .chapter-name,
+.chapter-point:focus-visible .chapter-name {
+  opacity: 1;
+  transform: none;
+}
+.mobile-chapter {
+  display: none;
+}
+@media (max-width: 1100px) {
+  .scroll-compass {
+    right: 5px;
+  }
+  .journey-graph {
+    height: 180px;
+  }
+  .journey-step h3 {
+    font-size: 18px;
+  }
+  .journey-sticky .section-marker {
+    margin-bottom: 24px;
+  }
+}
+@media (max-width: 760px) {
+  .signal-journey {
+    margin-top: 45px;
+    padding-top: 25px;
+  }
+  .signal-journey[data-enhanced="true"] {
+    height: 135svh;
+    min-height: 800px;
+  }
+  .signal-journey[data-enhanced="true"] .journey-sticky {
+    top: 88px;
+    height: min(650px, calc(100svh - 110px));
+    min-height: 440px;
+  }
+  .journey-heading h2 {
+    font-size: clamp(29px, 7vw, 39px);
+  }
+  .journey-heading > p {
+    display: none;
+  }
+  .journey-sticky .section-marker {
+    font-size: 6px;
+    margin-bottom: 25px;
+  }
+  .journey-sticky .section-marker > span:last-child {
+    font-size: 5px;
+    gap: 5px;
+  }
+  .journey-graph {
+    height: 145px;
+    margin: 6px 0 20px;
+  }
+  .journey-graph-labels {
+    font-size: 6px;
+    letter-spacing: 1px;
+    bottom: 8%;
+    left: 0;
+    right: 0;
+  }
+  .journey-graph-labels span {
+    width: 60px;
+  }
+  .journey-steps {
+    gap: 12px;
+  }
+  .journey-step {
+    padding-top: 12px;
+  }
+  .journey-step > span {
+    font-size: 6px;
+    letter-spacing: 0.5px;
+  }
+  .journey-step h3 {
+    font-size: 15px;
+    line-height: 1.3;
+    margin: 11px 0 9px;
+    letter-spacing: -0.4px;
+  }
+  .journey-step p {
+    font-size: 9px;
+    line-height: 1.8;
+  }
+  .journey-footnote {
+    font-size: 5px;
+    letter-spacing: 0.5px;
+    margin-top: 24px;
+    gap: 10px;
+  }
+  .journey-footnote > a {
+    gap: 5px;
+    white-space: nowrap;
+  }
+  .journey-footnote svg {
+    width: 10px;
+  }
+}
+@media (max-width: 380px) {
+  .journey-step h3 {
+    font-size: 13px;
+  }
+  .journey-step p {
+    font-size: 8px;
+  }
+  .journey-steps {
+    gap: 10px;
+  }
+  .journey-graph {
+    height: 120px;
+  }
+  .journey-footnote {
+    font-size: 4.5px;
+  }
+  .journey-sticky .section-marker > span:last-child {
+    letter-spacing: 0.3px;
+  }
+}
+@media (max-height: 640px) {
+  .signal-journey[data-enhanced="true"] {
+    height: auto;
+    min-height: 0;
+  }
+  .signal-journey[data-enhanced="true"] .journey-sticky {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 0;
+  }
+  .journey-graph {
+    height: 130px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .signal-trail {
+    display: none;
+  }
+  .signal-journey,
+  .signal-journey[data-enhanced="true"] {
+    height: auto;
+    min-height: 0;
+  }
+  .signal-journey .journey-sticky {
+    position: relative !important;
+    top: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+  .journey-graph svg,
+  .journey-graph:before {
+    transform: none;
+  }
+}
+
+@media (max-width: 760px), (hover: none) and (pointer: coarse) {
+  .scroll-compass {
+    right: auto;
+    left: 50%;
+    top: auto;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+  }
+  .chapter-rail {
+    display: none;
+  }
+  .mobile-chapter {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 205px;
+    border: 1px solid #d5cce380;
+    border-radius: 30px;
+    background: #f4f3f8ee;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 5px 25px #38324f0d;
+    overflow: hidden;
+  }
+  .mobile-chapter-current {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    padding: 13px 0 13px 16px;
+    font-size: 9px;
+    color: #655777;
+  }
+  .mobile-chapter-current > span {
+    font-size: 7px;
+    color: #a18cb9;
+  }
+  .mobile-chapter-next {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 42px;
+    border-left: 1px solid #d4cbe266;
+    color: #857098;
+  }
+  .mobile-chapter-progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: #af9bc8;
+    transform: scaleX(var(--page-progress, 0));
+    transform-origin: left;
+    pointer-events: none;
+  }
+  footer {
+    padding-bottom: 78px !important;
+  }
+}

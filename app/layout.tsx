@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Arrival } from "@/components/arrival";
 import { CursorAura } from "@/components/cursor-aura";
+import { ScrollCompass } from "@/components/scroll-compass";
+import { AmbientMotion } from "@/components/ambient-motion";
 import "./globals.css";
+import "./refinements.css";
+import "./discovery.css";
+import "./portfolio.css";
 
 const manrope = localFont({
   src: "../node_modules/@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2",
@@ -11,9 +16,9 @@ const manrope = localFont({
   display: "swap",
 });
 const editorial = localFont({
-  src: "../node_modules/@fontsource/dm-serif-display/files/dm-serif-display-latin-400-italic.woff2",
+  src: "../node_modules/@fontsource-variable/lora/files/lora-latin-wght-italic.woff2",
   variable: "--font-editorial",
-  weight: "400",
+  weight: "400 700",
   style: "italic",
   display: "swap",
 });
@@ -30,7 +35,9 @@ export default function RootLayout({
       <body>
         <CursorAura />
         <Arrival />
+        <AmbientMotion />
         {children}
+        <ScrollCompass />
       </body>
     </html>
   );

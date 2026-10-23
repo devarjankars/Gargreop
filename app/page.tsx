@@ -13,13 +13,15 @@ import {
 import {
   Header,
   Reveal,
-  Metrics,
   Assistant,
   Projects,
   Timeline,
   ContactButton,
 } from "@/components/interactive";
 import { SignalSculpture } from "@/components/signal-sculpture";
+import { BrandStar } from "@/components/brand-star";
+import { ExecutiveBrief } from "@/components/executive-brief";
+import { SignalJourney } from "@/components/signal-journey";
 import { HeroCopy } from "@/components/hero-copy";
 
 const competencies = [
@@ -93,7 +95,10 @@ export default function Home() {
             <span>EXPERIENCE SHAPED AT</span>
             <div>
               <b>
-                Accenture<span>↗</span>
+                Accenture
+                <span>
+                  <ArrowUpRight size={11} />
+                </span>
               </b>
               <b>Commvault</b>
               <b>
@@ -104,45 +109,7 @@ export default function Home() {
           </div>
         </div>
 
-        <section
-          id="about"
-          className="section-wrap about-section section-space"
-        >
-          <Reveal>
-            <div className="section-marker">
-              <span>01 / THE PERSPECTIVE</span>
-              <span>MORE THAN THE NUMBERS</span>
-            </div>
-            <div className="about-layout">
-              <p className="eyebrow">
-                A LITTLE ABOUT ME <ArrowUpRight size={15} />
-              </p>
-              <div>
-                <h2>
-                  Good analytics tells you
-                  <br />
-                  what happened.
-                  <br />
-                  <span className="serif-word">
-                    Great analytics moves you forward.
-                  </span>
-                </h2>
-                <p className="about-copy">
-                  I’m Sonu, an analytics lead who enjoys connecting the dots
-                  others might miss. Across Accenture, Commvault, and Amazon,
-                  I’ve built data pipelines, made enterprise risk more visible,
-                  and brought AI into the audit conversation.
-                </p>
-                <p className="about-copy">
-                  My approach is simple: understand the problem, build with
-                  purpose, and make the result useful to the people who depend
-                  on it.
-                </p>
-              </div>
-            </div>
-            <Metrics />
-          </Reveal>
-        </section>
+        <ExecutiveBrief />
 
         <section id="work" className="section-wrap section-space work-section">
           <Reveal>
@@ -152,14 +119,14 @@ export default function Home() {
             </div>
             <div className="section-heading">
               <h2>
-                Small details.
+                The work behind
                 <br />
-                <span className="serif-word">Meaningful shifts.</span>
+                <span className="serif-word">the impact.</span>
               </h2>
               <p>
-                A selection of systems, workflows, and insights
+                Explore the context, the contribution,
                 <br />
-                built to make a measurable difference.
+                and what changed.
               </p>
             </div>
             <Projects />
@@ -212,6 +179,8 @@ export default function Home() {
           </div>
         </section>
 
+        <SignalJourney />
+
         <section id="experience" className="section-wrap section-space">
           <Reveal>
             <div className="section-marker">
@@ -220,9 +189,9 @@ export default function Home() {
             </div>
             <div className="section-heading">
               <h2>
-                Different chapters.
+                Enterprise depth.
                 <br />
-                <span className="serif-word">One curious mind.</span>
+                <span className="serif-word">Human leadership.</span>
               </h2>
               <p>
                 Enterprise scale. Hands-on depth.
@@ -324,7 +293,7 @@ export default function Home() {
                   CONVERSATION
                 </span>
                 <span className="contact-star" aria-hidden="true">
-                  ✳︎
+                  <BrandStar />
                 </span>
               </div>
               <h2>
@@ -364,7 +333,10 @@ export default function Home() {
       </main>
       <footer className="section-wrap">
         <a className="wordmark" href="#home">
-          sonu garg<span>✳︎</span>
+          sonu garg
+          <span>
+            <BrandStar />
+          </span>
         </a>
         <p>© {new Date().getFullYear()} Sonu Garg · Thoughtfully connected.</p>
         <a href="#home">BACK TO TOP ↑</a>

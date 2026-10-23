@@ -1,4 +1,5 @@
 "use client";
+import { BrandStar } from "./brand-star";
 import {
   useEffect,
   useRef,
@@ -9,6 +10,7 @@ import {
 import {
   ArrowUpRight,
   ArrowRight,
+  ArrowDown,
   Send,
   Sparkles,
   ChevronDown,
@@ -63,14 +65,18 @@ export function Header() {
     <header className="header">
       <div className="nav-wrap">
         <a href="#home" aria-label="Sonu Garg home" className="wordmark">
-          sonu garg<span>✳︎</span>
+          sonu garg
+          <span>
+            <BrandStar />
+          </span>
         </a>
         <nav
           aria-label="Main navigation"
           className={open ? "navigation open" : "navigation"}
         >
           {[
-            ["Work", "work"],
+            ["Case studies", "work"],
+            ["AI lab", "innovation"],
             ["Experience", "experience"],
             ["Expertise", "expertise"],
           ].map(([label, id]) => (
@@ -98,63 +104,109 @@ export function Header() {
     </header>
   );
 }
-export function Metrics() {
-  const [active, setActive] = useState(false);
+const metricItems = [
+  {
+    target: 11,
+    suffix: "+",
+    label: "Years of experience",
+    note: "Built on real-world complexity",
+    final: "11+",
+  },
+  {
+    target: 50,
+    upper: 60,
+    label: "Audits supported / year",
+    note: "Analytics at enterprise scale",
+    final: "50–60",
+  },
+  {
+    target: 40,
+    suffix: "%",
+    label: "Less report preparation time",
+    note: "More room for meaningful work",
+    final: "40%",
+  },
+];
+
+function ImpactMetric({ item }: { item: (typeof metricItems)[number] }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
+  // Render the true value on the server: unavailable JS never leaves a zero.
+  const [progress, setProgress] = useState(1);
   useEffect(() => {
-    const observer = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) {
-        setActive(true);
-        observer.disconnect();
-      }
-    });
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-  useEffect(() => {
-    if (!active) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const element = ref.current;
+    if (!element || typeof IntersectionObserver === "undefined") return;
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let frame = 0;
+    let inside = false;
+    const finish = () => {
+      cancelAnimationFrame(frame);
       setProgress(1);
-      return;
-    }
-    let frame: number;
-    const start = performance.now();
-    const tick = (now: number) => {
-      const value = Math.min((now - start) / 1100, 1);
-      setProgress(1 - Math.pow(1 - value, 3));
-      if (value < 1) frame = requestAnimationFrame(tick);
     };
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [active]);
+    const animate = () => {
+      cancelAnimationFrame(frame);
+      if (motion.matches || document.hidden) {
+        setProgress(1);
+        return;
+      }
+      setProgress(0);
+      let start: number | null = null;
+      const tick = (now: number) => {
+        if (start === null) start = now;
+        const elapsed = Math.min((now - start) / 1250, 1);
+        setProgress(1 - Math.pow(1 - elapsed, 3));
+        if (elapsed < 1) frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
+    };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const visible = entry.isIntersecting && entry.intersectionRatio >= 0.35;
+        if (visible && !inside) animate();
+        else if (!visible && inside) finish();
+        inside = visible;
+      },
+      { threshold: [0, 0.35], rootMargin: "0px 0px -30px 0px" },
+    );
+    observer.observe(element);
+    const onMotion = () => {
+      if (motion.matches) finish();
+    };
+    const onVisibility = () => {
+      if (document.hidden) finish();
+      else if (inside) animate();
+    };
+    motion.addEventListener("change", onMotion);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+      motion.removeEventListener("change", onMotion);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, []);
+  const value = item.upper
+    ? `${Math.round(item.target * progress)}–${Math.round(item.upper * progress)}`
+    : `${Math.round(item.target * progress)}${item.suffix}`;
   return (
-    <div ref={ref} className="metrics">
-      {[
-        {
-          value: `${Math.round(11 * progress)}+`,
-          label: "Years of experience",
-          note: "Built on real-world complexity",
-        },
-        {
-          value: progress === 1 ? "50–60" : `${Math.round(50 * progress)}`,
-          label: "Audits supported / year",
-          note: "Analytics at enterprise scale",
-        },
-        {
-          value: `${Math.round(40 * progress)}%`,
-          label: "Less report preparation time",
-          note: "More room for meaningful work",
-        },
-      ].map((x) => (
-        <div className="metric" key={x.label}>
-          <strong>
-            {x.value}
-            <span>↗</span>
-          </strong>
-          <p>{x.label}</p>
-          <small>{x.note}</small>
-        </div>
+    <div className="metric" ref={ref} data-counting={progress < 1}>
+      <strong>
+        <span className="sr-only">{item.final}</span>
+        <span className="metric-value" aria-hidden="true">
+          {value}
+        </span>
+        <ArrowUpRight className="metric-arrow" size={22} aria-hidden="true" />
+      </strong>
+      <p>{item.label}</p>
+      <small>{item.note}</small>
+    </div>
+  );
+}
+
+export function Metrics() {
+  return (
+    <div className="metrics">
+      {metricItems.map((item) => (
+        <ImpactMetric key={item.label} item={item} />
       ))}
     </div>
   );
@@ -258,10 +310,11 @@ export function Assistant() {
 }
 export function Projects() {
   const [filter, setFilter] = useState<Category>("All");
-  const [expanded, setExpanded] = useState<string | null>(null);
+  const [selected, setSelected] = useState("01");
   const visible = projects.filter(
     (p) => filter === "All" || p.category === filter,
   );
+  const active = visible.find((p) => p.number === selected) ?? visible[0];
   return (
     <>
       <div className="work-toolbar">
@@ -272,7 +325,9 @@ export function Projects() {
               aria-pressed={filter === f}
               onClick={() => {
                 setFilter(f);
-                setExpanded(null);
+                setSelected(
+                  projects.find((p) => f === "All" || p.category === f)!.number,
+                );
               }}
               className={filter === f ? "selected" : ""}
             >
@@ -281,58 +336,121 @@ export function Projects() {
           ))}
         </div>
         <span className="work-count" role="status">
-          {String(visible.length).padStart(2, "0")} PROJECTS
+          {String(visible.length).padStart(2, "0")} CASE STUDIES
         </span>
       </div>
-      <div className="project-grid">
-        {visible.map((p) => (
-          <article className="project" key={p.number}>
-            <ProjectArtwork number={p.number} />
-            <div className="project-body">
-              <div className="project-top">
-                <span>{p.category}</span>
-                <span className="project-number">/{p.number}</span>
-              </div>
-              <h3>{p.title}</h3>
-              <p>{p.description}</p>
-              <div className="tags">
-                {p.tags.map((t) => (
-                  <span key={t}>{t}</span>
-                ))}
-              </div>
+      <div className="case-workspace">
+        <div className="case-directory">
+          <div className="case-directory-heading">
+            <span>THE COLLECTION</span>
+            <span>
+              SELECT TO EXPLORE <ArrowDown size={11} />
+            </span>
+          </div>
+          <div
+            className="case-index"
+            role="group"
+            aria-label="Choose a case study"
+          >
+            {visible.map((p) => (
               <button
-                className="project-outcome"
-                aria-expanded={expanded === p.number}
-                aria-controls={`project-detail-${p.number}`}
-                onClick={() =>
-                  setExpanded(expanded === p.number ? null : p.number)
-                }
+                key={p.number}
+                className={`case-select ${active.number === p.number ? "active" : ""}`}
+                aria-pressed={active.number === p.number}
+                aria-controls="selected-case-study"
+                onClick={() => setSelected(p.number)}
               >
-                <span>{p.outcome}</span>
-                {expanded === p.number ? (
-                  <X size={17} />
-                ) : (
-                  <ArrowUpRight size={18} />
-                )}
+                <span className="case-number">{p.number}</span>
+                <span className="case-select-copy">
+                  <strong>{p.name}</strong>
+                  <span>{p.category}</span>
+                </span>
+                <ArrowUpRight size={17} />
               </button>
-              <div
-                className="project-detail"
-                id={`project-detail-${p.number}`}
-                hidden={expanded !== p.number}
-              >
+            ))}
+          </div>
+          <div className="case-directory-note">
+            <span className="case-note-mark" aria-hidden="true">
+              <ArrowRight size={20} />
+            </span>
+            <p>
+              Built in real enterprise environments.
+              <br />
+              Shared through illustrative visuals.
+            </p>
+          </div>
+        </div>
+        <article
+          id="selected-case-study"
+          className="case-paper"
+          aria-labelledby={`case-title-${active.number}`}
+        >
+          <div className="case-cover" key={`cover-${active.number}`}>
+            <ProjectArtwork number={active.number} />
+            <span className="case-cover-badge">CASE / {active.number}</span>
+          </div>
+          <div className="case-content" key={active.number}>
+            <div className="case-meta">
+              <span>{active.category}</span>
+              <span>{active.number === "05" ? "COMMVAULT" : "ACCENTURE"}</span>
+            </div>
+            <h3 id={`case-title-${active.number}`}>{active.title}</h3>
+            <div className="case-context">
+              <span>THE CONTEXT</span>
+              <p>{active.context}</p>
+            </div>
+            <div className="case-detail-grid">
+              <div>
                 <span>THE APPROACH</span>
-                <p>{p.approach}</p>
+                <p>{active.approach}</p>
+              </div>
+              <div>
                 <span>MY CONTRIBUTION</span>
-                <p>{p.contribution}</p>
+                <p>{active.contribution}</p>
               </div>
             </div>
-          </article>
-        ))}
+            <div className="case-result">
+              <span>DELIVERED OUTCOME</span>
+              <strong>{active.outcome}</strong>
+              <ArrowUpRight size={22} />
+            </div>
+            <div className="case-bottom">
+              <div className="tags">
+                {active.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </div>
+              <a
+                className="case-cta"
+                href={active.number === "01" ? "#innovation" : "#contact"}
+              >
+                {active.number === "01"
+                  ? "Try the audit copilot"
+                  : "Let’s discuss this work"}
+                <ArrowUpRight size={14} />
+              </a>
+            </div>
+          </div>
+        </article>
       </div>
+      <span className="sr-only" role="status">
+        {active.name} case study selected.
+      </span>
       <p className="project-note">
-        Illustrative visuals · selected professional contributions · internal
+        Selected professional contributions · illustrative visuals · internal
         systems remain confidential.
       </p>
+      <noscript>
+        <div className="case-static-list">
+          {projects.slice(1).map((p) => (
+            <article key={p.number}>
+              <h3>{p.name}</h3>
+              <p>{p.description}</p>
+              <strong>{p.outcome}</strong>
+            </article>
+          ))}
+        </div>
+      </noscript>
     </>
   );
 }

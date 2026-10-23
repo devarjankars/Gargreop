@@ -44,29 +44,31 @@ export function SignalSculpture() {
       <div
         className="sculpture-stage"
         role="img"
-        aria-label="An abstract three-dimensional sphere of green data ribbons, representing complexity becoming clarity"
+        aria-label="An abstract three-dimensional sphere of indigo data ribbons, representing complexity becoming clarity"
       >
         <div className="sculpture-shadow" />
-        <div className="sculpture-tilt">
-          <div className="sculpture-spin">
-            {Array.from({ length: 27 }, (_, i) => {
-              const latitude = (i / 26) * Math.PI;
-              const diameter = Math.max(30, Math.sin(latitude) * 304);
-              return (
-                <span
-                  key={i}
-                  className="data-ribbon"
-                  style={
-                    {
-                      "--diameter": `${diameter}px`,
-                      "--elevation": `${Math.cos(latitude) * 152}px`,
-                      "--ribbon-index": i,
-                    } as CSSProperties
-                  }
-                />
-              );
-            })}
-            <div className="sculpture-axis" />
+        <div className="sculpture-scroll">
+          <div className="sculpture-tilt">
+            <div className="sculpture-spin">
+              {Array.from({ length: 27 }, (_, i) => {
+                const latitude = (i / 26) * Math.PI;
+                const diameter = Math.max(30, Math.sin(latitude) * 304);
+                return (
+                  <span
+                    key={i}
+                    className="data-ribbon"
+                    style={
+                      {
+                        "--diameter": `${diameter}px`,
+                        "--elevation": `${Math.cos(latitude) * 152}px`,
+                        "--ribbon-index": i,
+                      } as CSSProperties
+                    }
+                  />
+                );
+              })}
+              <div className="sculpture-axis" />
+            </div>
           </div>
         </div>
         <span className="scene-callout callout-input">

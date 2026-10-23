@@ -1,16 +1,15 @@
 # Sonu Garg — Analytics Portfolio
 
-A responsive, ivory-and-forest editorial portfolio built with Next.js App Router, TypeScript, Tailwind CSS v4, and Lucide icons. Requires Node.js 20.9+ (validated with Node 24).
+An editorial portfolio built with Next.js App Router, React, TypeScript, Tailwind CSS v4, and Lucide icons. Midnight blue, periwinkle, warm apricot, and pale lavender connect the visual identity to analytics and AI. Requires Node.js 20.9+; validated with Node 24.
 
-## Run locally
+## Development
 
 ```bash
-cd /workspace/Gargreop
 npm ci
 npm run dev
 ```
 
-Open the development server on port 3000 in your local development environment.
+The development server uses port 3000. No database, API keys, or remote font service is required.
 
 ## Production
 
@@ -20,45 +19,67 @@ npm run typecheck
 npm start
 ```
 
-Deploy to a Node-compatible host or import the repository into Vercel. No API keys, database, or external font service are required. Manrope Variable and DM Serif Display are self-hosted through `next/font/local` using the installed Fontsource packages. Commit `package-lock.json` for repeatable installations.
+Deploy to a Node-compatible host or import the repository into Vercel. The lockfile is committed for repeatable installs. Manrope Variable and Lora Variable Italic are self-hosted with `next/font/local` from the installed Fontsource packages, including their licenses.
 
 ## Structure
 
-- `app/page.tsx`: server-rendered page sections and professional content.
-- `app/layout.tsx`: page metadata and root layout.
-- `app/globals.css`: Tailwind import, design tokens, responsive components, animation, and reduced-motion overrides.
-- `components/interactive.tsx`: client-only navigation, counters, project filters, expandable experience, assistant simulation, and email copy action.
-- `components/signal-sculpture.tsx`: original CSS 3D ribbon sculpture with pointer tilt, pause control, and reduced-motion support.
-- `components/project-artwork.tsx`: six original project illustrations, not internal product screenshots.
-- `lib/data.ts`: project, approach, contribution, and experience data.
-- `public/Sonu-Garg-Resume.pdf`: downloadable résumé provided by the portfolio owner.
+- `app/page.tsx`: professional content and server-rendered sections.
+- `app/layout.tsx`: metadata, local fonts, intro, and ambient motion.
+- `app/globals.css`: base layouts, illustrations, responsive styling, and animation foundations.
+- `app/refinements.css`: current theme, bolder typography, responsive loader, cursor effects, and scroll depth.
+- `components/arrival.tsx`: skippable native-dialog introduction.
+- `components/hero-copy.tsx`: coordinated animated headline and perspective controls.
+- `components/interactive.tsx`: navigation, independently observed impact counters, project filters and case-study selection, timeline, assistant demo, and contact copy.
+- `components/ambient-motion.tsx`: fading cursor constellation, tap ripples, contextual cursor, project tilt, and scroll-driven sculpture depth.
+- `components/signal-journey.tsx`: scroll-linked Data → Context → Clarity story.
+- `components/scroll-compass.tsx`: desktop chapter rail and touch-friendly section guide.
+- `app/discovery.css`: discovery interactions and responsive story layouts.
+- `components/signal-sculpture.tsx`: original CSS 3D data-ribbon sphere, with pause control.
+- `components/project-artwork.tsx`: original illustrative project visuals, not internal screenshots.
+- `components/brand-star.tsx`: platform-independent SVG identity mark.
+- `lib/data.ts`: project descriptions, contributions, approaches, and career history.
+- `public/Sonu-Garg-Resume.pdf`: owner-provided downloadable résumé.
 
-## Customize
+## Motion and mobile behavior
 
-Edit `lib/data.ts` for projects and career history, and `app/page.tsx` for skills, contact details, recognition, and education. Adjust colors and layouts in `app/globals.css`. Update title and description in `app/layout.tsx` before deployment.
+The intro runs on each full page load, including reloads. It shows Data → Context → Clarity, then exits in about 1.8 seconds. It uses a safe-area-aware, three-row viewport layout that fits portrait and landscape mobile screens. Skip intro and Escape close it immediately. Its decorative progress line is an introduction sequence, not a measurement of asset download progress. Reduced-motion users skip the intro, and with JavaScript disabled the dialog stays closed.
 
-The audit assistant is a deterministic simulation with fictional names and records, not an LLM or IA3 integration. It makes no network requests. To connect a real service, implement a server-side route with authentication, authorization, input validation, rate limits, and approved data access; never expose audit data or model credentials in browser code.
+The headline rotates every 3.4 seconds with a 520ms slide and shorter opacity crossfade. Manual selection pauses autoplay; the play/pause control resumes or stops it. The screen-reader heading stays stable. The main Manrope text is semibold; the variable Lora italic headline uses a real 600 weight. Words and descriptions reserve layout space.
 
-The 40% impact metric refers to recurring report preparation time. Dap’er’s separate project metric refers to manual follow-up effort. Certification labels reflect the supplied CV; confirm exact credentials and issuers before publication.
+Each metric observes its own visibility and counts for about 1.25 seconds on viewport entry. They replay on re-entry, finish at their true values, and render those final values in server HTML. Counters sit outside the parent scroll-reveal wrapper. Reduced-motion preferences and unavailable JavaScript leave the true numbers visible rather than zero.
 
-## Verification
+The cursor halo and pointer-driven project tilt run only on fine-pointer devices. The native cursor remains available. Scroll adds a small smoothed lift and rotation to the sculpture on both desktop and mobile. All ambient effects use event-driven requestAnimationFrame scheduling; they stop when settled. Reduced-motion mode disables the cursor halo, tilt, scroll depth, and decorative animation.
 
-Run `npm run build` and `npm run typecheck`. For interaction checks, use the project filters, expand each employer, submit HR/Finance/Payroll sample questions, test unsupported input, and exercise mobile navigation. Test keyboard focus, email links, and reduced-motion preferences. The demo response intentionally has a short simulated delay.
+## Content and privacy
 
-## Design direction
+Update `lib/data.ts` for projects and career details, `app/page.tsx` for remaining content, and the PDF for résumé changes. The assistant is a deterministic demo with fictional records. It makes no network requests and has no live IA3 or LLM access. A real integration requires a server-side authenticated route and approved audit-data access; never put model credentials or confidential audit records in browser code.
 
-The “clarity engine” visual identity uses warm ivory, forest green, sage, and restrained lime accents. Large editorial type, dimensional data ribbons, illustrated project stories, and a contrasting forest-green AI section connect the visual design to analytics and risk. No stock images, WebGL, remote font requests, or animation packages are needed.
+The 40% impact metric refers to report preparation time. Dap’er’s separate 40% metric refers to manual follow-up effort. Certification labels reflect the supplied CV; confirm exact issuers and titles before publication.
 
-Project outcome buttons expand the documented approach and contribution. The sculpture pause button stops its rotation; reduced-motion settings also disable rotation, pointer tilt, decorative movement, and scroll animations. The original portfolio owner’s résumé is available through the two download links; replace the PDF to update it.
+## Validation
 
-Validated in headless Chromium at 1440, 1024, 768, 390, and 320px: no horizontal overflow; filters, expandable project stories, HR/Finance demo answers and fallback, experience timeline, mobile navigation and Escape, PDF delivery, and reduced-motion behavior all pass without browser errors.
+Production build and TypeScript checks pass. Chromium touch emulation at 390×844, 375×667, 320×568, and 844×390 verifies intro placement, dismissal without scroll jumps, replay on reload, visible counter transitions and re-entry, all headline words fitting, and no custom touch cursor. Desktop checks cover the cursor halo, hover response, card tilt, scroll depth, and reduced-motion overrides. Reduced-motion and no-JavaScript checks verify the true final metric values. These are browser-emulation checks, not physical iPhone/Safari certification.
 
-## Typography & arrival sequence
+## Signal discovery interactions
 
-Manrope Variable and DM Serif Display pair the technical and editorial sides of the identity. Both Latin WOFF2 fonts are served locally with Next.js font optimization. Copper accents complement the forest, ivory, and sage palette. Font packages and licenses are retained through npm dependencies.
+The desktop cursor leaves a short constellation trail and shows contextual OPEN or VIEW labels over actionable controls. A bounded canvas particle pool (at most 40 particles) fades after movement stops; the render loop sleeps when there is nothing to update. The canvas is capped at 1.5 device pixels per CSS pixel, stays pointer-transparent, and clears when the tab becomes hidden. Native cursors, keyboard navigation, links, and scrolling remain available.
 
-`components/arrival.tsx` implements a roughly 2.2-second first-visit intro: Data → Context → Clarity, animated orbit rings, and a curtain exit. A native dialog manages focus and background interaction; Skip intro and Escape dismiss immediately. Session storage (`sonu-arrival-v1`) suppresses replay within the same tab. No assets or data are artificially held up by this decorative sequence. When storage is unavailable, the intro still dismisses normally. With reduced motion or JavaScript disabled, the page is available directly.
+Touch devices use a brief tap ripple instead of a mouse follower. Pointer cancellation distinguishes native pan gestures from taps, and input fields are excluded. No sensor access, device permissions, or gesture interception is used.
 
-`components/hero-copy.tsx` provides staggered text reveals and three coordinated headline perspectives: clarity, confidence, and direction. The word row and descriptions reserve their space to avoid shifting the content. Autoplay runs every 4.3 seconds while the hero is visible; manual selection pauses it, and the play/pause control resumes or stops it. Reduced-motion mode uses a stable headline. Heading accessibility text stays constant rather than announcing every visual change. Browsers supporting scroll-linked CSS animations show a thin reading-progress line below the header.
+The Method section traces an illustrated signal from Data to Context to Clarity as the visitor scrolls. On taller screens, the story panel briefly sticks while the page scrolls normally. At heights of 640px or less, it becomes an ordinary flowing section and still updates the path with scroll. Reduced-motion and no-JavaScript modes keep all three stages readable without pinning.
 
-Additional browser validation covers intro auto-dismiss and focus, Escape and skip behavior, same-tab repeat visits, unavailable storage, no-JavaScript rendering, locally loaded fonts, headline selection/autoplay/pause, reduced motion, and every headline word at 320–1440px.
+A desktop chapter rail tracks page progress and links directly to sections. Narrow screens and coarse-pointer devices get a compact bottom guide with the current chapter and a next-section link. The guide stays inert and outside keyboard navigation until it becomes visible; footer spacing leaves room for it.
+
+Browser checks verify drawn cursor-trail pixels and their expiry, contextual labels, all three story stages, chapter anchors, touch-ripple drawing and expiry, no mobile follower, and story bounds at 390×844, 375×667, 320×568, and 844×390. No horizontal overflow or browser errors were observed. Reduced-motion and no-JavaScript story fallbacks are checked separately.
+
+## Executive portfolio structure
+
+The page now follows an evidence-first reading order: introduction → executive brief → selected case studies → AI demonstration → working method → career experience → expertise and credentials → contact. The header and chapter guide follow that order.
+
+`components/executive-brief.tsx` combines the verified 11+ years / 50–60 audits / 40% report-preparation metrics with an asymmetrical profile layout: current BI leadership at Accenture, fraud-risk coverage across four business functions, and two analysts directly managed and mentored. Its detail links lead to career history, expertise, and the résumé.
+
+The project collection is an interactive case-study navigator instead of a repeated card grid. Six selectable projects retain category filtering. The selected case shows its actual name, context, approach, contribution, delivered outcome, and tech stack. The audit assistant case links directly to the clearly labeled simulation; other cases link to contact. Selection is manual, keyboard-accessible, and announced through a short status message. On mobile, the case index scrolls horizontally with native touch scrolling. A no-JavaScript fallback includes the remaining five projects below the featured first case.
+
+`app/portfolio.css` contains these structural layouts. Case names and contexts are maintained alongside the existing project data in `lib/data.ts`. All earlier cursor, tap, scroll, loader, and counter behaviors remain available.
+
+Verified with the production build, TypeScript, and Chromium browser checks: reading order, all six selections, category defaults, keyboard selection, AI demo anchor, HR demo response, chapter order, touch selection and horizontal index, main navigation, résumé response, reduced-motion selection, no-JavaScript project content, and no overflow at 320, 390, 768, 1024, and 1440px.
