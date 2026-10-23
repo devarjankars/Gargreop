@@ -29,7 +29,7 @@ Deploy to a Node-compatible host or import the repository into Vercel. The lockf
 - `app/refinements.css`: current theme, bolder typography, responsive loader, cursor effects, and scroll depth.
 - `components/arrival.tsx`: skippable native-dialog introduction.
 - `components/hero-copy.tsx`: coordinated animated headline and perspective controls.
-- `components/interactive.tsx`: navigation, independently observed impact counters, project filters and details, timeline, assistant demo, and contact copy.
+- `components/interactive.tsx`: navigation, independently observed impact counters, project filters and case-study selection, timeline, assistant demo, and contact copy.
 - `components/ambient-motion.tsx`: fading cursor constellation, tap ripples, contextual cursor, project tilt, and scroll-driven sculpture depth.
 - `components/signal-journey.tsx`: scroll-linked Data → Context → Clarity story.
 - `components/scroll-compass.tsx`: desktop chapter rail and touch-friendly section guide.
@@ -62,7 +62,7 @@ Production build and TypeScript checks pass. Chromium touch emulation at 390×84
 
 ## Signal discovery interactions
 
-The desktop cursor leaves a short constellation trail and shows contextual OPEN or READ labels over actionable controls. A bounded canvas particle pool (at most 40 particles) fades after movement stops; the render loop sleeps when there is nothing to update. The canvas is capped at 1.5 device pixels per CSS pixel, stays pointer-transparent, and clears when the tab becomes hidden. Native cursors, keyboard navigation, links, and scrolling remain available.
+The desktop cursor leaves a short constellation trail and shows contextual OPEN or VIEW labels over actionable controls. A bounded canvas particle pool (at most 40 particles) fades after movement stops; the render loop sleeps when there is nothing to update. The canvas is capped at 1.5 device pixels per CSS pixel, stays pointer-transparent, and clears when the tab becomes hidden. Native cursors, keyboard navigation, links, and scrolling remain available.
 
 Touch devices use a brief tap ripple instead of a mouse follower. Pointer cancellation distinguishes native pan gestures from taps, and input fields are excluded. No sensor access, device permissions, or gesture interception is used.
 
@@ -71,3 +71,15 @@ The Method section traces an illustrated signal from Data to Context to Clarity 
 A desktop chapter rail tracks page progress and links directly to sections. Narrow screens and coarse-pointer devices get a compact bottom guide with the current chapter and a next-section link. The guide stays inert and outside keyboard navigation until it becomes visible; footer spacing leaves room for it.
 
 Browser checks verify drawn cursor-trail pixels and their expiry, contextual labels, all three story stages, chapter anchors, touch-ripple drawing and expiry, no mobile follower, and story bounds at 390×844, 375×667, 320×568, and 844×390. No horizontal overflow or browser errors were observed. Reduced-motion and no-JavaScript story fallbacks are checked separately.
+
+## Executive portfolio structure
+
+The page now follows an evidence-first reading order: introduction → executive brief → selected case studies → AI demonstration → working method → career experience → expertise and credentials → contact. The header and chapter guide follow that order.
+
+`components/executive-brief.tsx` combines the verified 11+ years / 50–60 audits / 40% report-preparation metrics with an asymmetrical profile layout: current BI leadership at Accenture, fraud-risk coverage across four business functions, and two analysts directly managed and mentored. Its detail links lead to career history, expertise, and the résumé.
+
+The project collection is an interactive case-study navigator instead of a repeated card grid. Six selectable projects retain category filtering. The selected case shows its actual name, context, approach, contribution, delivered outcome, and tech stack. The audit assistant case links directly to the clearly labeled simulation; other cases link to contact. Selection is manual, keyboard-accessible, and announced through a short status message. On mobile, the case index scrolls horizontally with native touch scrolling. A no-JavaScript fallback includes the remaining five projects below the featured first case.
+
+`app/portfolio.css` contains these structural layouts. Case names and contexts are maintained alongside the existing project data in `lib/data.ts`. All earlier cursor, tap, scroll, loader, and counter behaviors remain available.
+
+Verified with the production build, TypeScript, and Chromium browser checks: reading order, all six selections, category defaults, keyboard selection, AI demo anchor, HR demo response, chapter order, touch selection and horizontal index, main navigation, résumé response, reduced-motion selection, no-JavaScript project content, and no overflow at 320, 390, 768, 1024, and 1440px.

@@ -10,6 +10,7 @@ import {
 import {
   ArrowUpRight,
   ArrowRight,
+  ArrowDown,
   Send,
   Sparkles,
   ChevronDown,
@@ -74,7 +75,8 @@ export function Header() {
           className={open ? "navigation open" : "navigation"}
         >
           {[
-            ["Work", "work"],
+            ["Case studies", "work"],
+            ["AI lab", "innovation"],
             ["Experience", "experience"],
             ["Expertise", "expertise"],
           ].map(([label, id]) => (
@@ -308,10 +310,11 @@ export function Assistant() {
 }
 export function Projects() {
   const [filter, setFilter] = useState<Category>("All");
-  const [expanded, setExpanded] = useState<string | null>(null);
+  const [selected, setSelected] = useState("01");
   const visible = projects.filter(
     (p) => filter === "All" || p.category === filter,
   );
+  const active = visible.find((p) => p.number === selected) ?? visible[0];
   return (
     <>
       <div className="work-toolbar">
@@ -322,7 +325,9 @@ export function Projects() {
               aria-pressed={filter === f}
               onClick={() => {
                 setFilter(f);
-                setExpanded(null);
+                setSelected(
+                  projects.find((p) => f === "All" || p.category === f)!.number,
+                );
               }}
               className={filter === f ? "selected" : ""}
             >
@@ -331,58 +336,121 @@ export function Projects() {
           ))}
         </div>
         <span className="work-count" role="status">
-          {String(visible.length).padStart(2, "0")} PROJECTS
+          {String(visible.length).padStart(2, "0")} CASE STUDIES
         </span>
       </div>
-      <div className="project-grid">
-        {visible.map((p) => (
-          <article className="project" key={p.number}>
-            <ProjectArtwork number={p.number} />
-            <div className="project-body">
-              <div className="project-top">
-                <span>{p.category}</span>
-                <span className="project-number">/{p.number}</span>
-              </div>
-              <h3>{p.title}</h3>
-              <p>{p.description}</p>
-              <div className="tags">
-                {p.tags.map((t) => (
-                  <span key={t}>{t}</span>
-                ))}
-              </div>
+      <div className="case-workspace">
+        <div className="case-directory">
+          <div className="case-directory-heading">
+            <span>THE COLLECTION</span>
+            <span>
+              SELECT TO EXPLORE <ArrowDown size={11} />
+            </span>
+          </div>
+          <div
+            className="case-index"
+            role="group"
+            aria-label="Choose a case study"
+          >
+            {visible.map((p) => (
               <button
-                className="project-outcome"
-                aria-expanded={expanded === p.number}
-                aria-controls={`project-detail-${p.number}`}
-                onClick={() =>
-                  setExpanded(expanded === p.number ? null : p.number)
-                }
+                key={p.number}
+                className={`case-select ${active.number === p.number ? "active" : ""}`}
+                aria-pressed={active.number === p.number}
+                aria-controls="selected-case-study"
+                onClick={() => setSelected(p.number)}
               >
-                <span>{p.outcome}</span>
-                {expanded === p.number ? (
-                  <X size={17} />
-                ) : (
-                  <ArrowUpRight size={18} />
-                )}
+                <span className="case-number">{p.number}</span>
+                <span className="case-select-copy">
+                  <strong>{p.name}</strong>
+                  <span>{p.category}</span>
+                </span>
+                <ArrowUpRight size={17} />
               </button>
-              <div
-                className="project-detail"
-                id={`project-detail-${p.number}`}
-                hidden={expanded !== p.number}
-              >
+            ))}
+          </div>
+          <div className="case-directory-note">
+            <span className="case-note-mark" aria-hidden="true">
+              <ArrowRight size={20} />
+            </span>
+            <p>
+              Built in real enterprise environments.
+              <br />
+              Shared through illustrative visuals.
+            </p>
+          </div>
+        </div>
+        <article
+          id="selected-case-study"
+          className="case-paper"
+          aria-labelledby={`case-title-${active.number}`}
+        >
+          <div className="case-cover" key={`cover-${active.number}`}>
+            <ProjectArtwork number={active.number} />
+            <span className="case-cover-badge">CASE / {active.number}</span>
+          </div>
+          <div className="case-content" key={active.number}>
+            <div className="case-meta">
+              <span>{active.category}</span>
+              <span>{active.number === "05" ? "COMMVAULT" : "ACCENTURE"}</span>
+            </div>
+            <h3 id={`case-title-${active.number}`}>{active.title}</h3>
+            <div className="case-context">
+              <span>THE CONTEXT</span>
+              <p>{active.context}</p>
+            </div>
+            <div className="case-detail-grid">
+              <div>
                 <span>THE APPROACH</span>
-                <p>{p.approach}</p>
+                <p>{active.approach}</p>
+              </div>
+              <div>
                 <span>MY CONTRIBUTION</span>
-                <p>{p.contribution}</p>
+                <p>{active.contribution}</p>
               </div>
             </div>
-          </article>
-        ))}
+            <div className="case-result">
+              <span>DELIVERED OUTCOME</span>
+              <strong>{active.outcome}</strong>
+              <ArrowUpRight size={22} />
+            </div>
+            <div className="case-bottom">
+              <div className="tags">
+                {active.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </div>
+              <a
+                className="case-cta"
+                href={active.number === "01" ? "#innovation" : "#contact"}
+              >
+                {active.number === "01"
+                  ? "Try the audit copilot"
+                  : "Let’s discuss this work"}
+                <ArrowUpRight size={14} />
+              </a>
+            </div>
+          </div>
+        </article>
       </div>
+      <span className="sr-only" role="status">
+        {active.name} case study selected.
+      </span>
       <p className="project-note">
-        Illustrative visuals · selected professional contributions · internal
+        Selected professional contributions · illustrative visuals · internal
         systems remain confidential.
       </p>
+      <noscript>
+        <div className="case-static-list">
+          {projects.slice(1).map((p) => (
+            <article key={p.number}>
+              <h3>{p.name}</h3>
+              <p>{p.description}</p>
+              <strong>{p.outcome}</strong>
+            </article>
+          ))}
+        </div>
+      </noscript>
     </>
   );
 }

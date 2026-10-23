@@ -137,8 +137,8 @@ export function AmbientMotion() {
       const target = event.target instanceof Element ? event.target : null;
       cursor!.dataset.interactive = String(!!target?.closest("a,button"));
       if (label.current)
-        label.current.textContent = target?.closest(".project-outcome")
-          ? "READ"
+        label.current.textContent = target?.closest(".case-select")
+          ? "VIEW"
           : target?.closest("a,button")
             ? "OPEN"
             : "";

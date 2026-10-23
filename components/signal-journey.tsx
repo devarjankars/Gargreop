@@ -106,7 +106,7 @@ export function SignalJourney() {
           <h2 id="journey-title">
             Behind every insight,
             <br />
-            <span className="serif-word">a little alchemy.</span>
+            <span className="serif-word">a deliberate process.</span>
           </h2>
           <p>
             My approach to turning

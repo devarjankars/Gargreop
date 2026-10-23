@@ -7,6 +7,8 @@ export const filters = [
 export type Category = (typeof filters)[number];
 export const projects: {
   title: string;
+  name: string;
+  context: string;
   category: Category;
   description: string;
   tags: string[];
@@ -17,6 +19,9 @@ export const projects: {
 }[] = [
   {
     title: "An audit assistant that speaks your language.",
+    name: "Agentic AI Audit Assistant",
+    context:
+      "Audit stakeholders needed a natural-language way to retrieve status, owners, and handlers from the IA3 tracker.",
     category: "AI & Automation",
     description:
       "An LLM-connected assistant for the IA3 status tracker. Ask about audit status, assigned owners, and current handlers in natural language.",
@@ -30,6 +35,9 @@ export const projects: {
   },
   {
     title: "Less chasing. More progress.",
+    name: "Dap\u2019er Workflow Automation",
+    context:
+      "Recurring workflow tracking and manual follow-ups created an opportunity for process automation.",
     category: "AI & Automation",
     description:
       "Dap’er automates workflow tracking and reporting, bringing follow-ups into one consistent process.",
@@ -43,6 +51,9 @@ export const projects: {
   },
   {
     title: "A clearer view of assurance.",
+    name: "Aligned Assurance Dashboard",
+    context:
+      "Assurance metrics needed a consolidated view for audit and compliance reporting.",
     category: "Audit & Risk",
     description:
       "Aligned Assurance dashboards consolidate assurance metrics for audit and compliance reporting.",
@@ -56,6 +67,9 @@ export const projects: {
   },
   {
     title: "Legacy analytics, re-engineered.",
+    name: "Legacy Analytics Conversion",
+    context:
+      "Legacy Type B analytics needed conversion into standardized, business-ready Type A reporting.",
     category: "Data Engineering",
     description:
       "Converted Type B analytics to Type A, standardizing legacy outputs into business-ready reporting.",
@@ -69,6 +83,9 @@ export const projects: {
   },
   {
     title: "Find the signal in campaign data.",
+    name: "Campaign & Audience Intelligence",
+    context:
+      "Campaign performance and audience analysis depended on connecting SQL and Salesforce data.",
     category: "Data Engineering",
     description:
       "Campaign and audience reporting combines SQL and Salesforce data for performance tracking and segmentation.",
@@ -82,6 +99,9 @@ export const projects: {
   },
   {
     title: "Risk visibility across functions.",
+    name: "Cross-functional Risk Analytics",
+    context:
+      "Risk reviews needed control-gap visibility across HR, Finance, Procurement, and Payroll.",
     category: "Audit & Risk",
     description:
       "Fraud-risk analytics surfaces control gaps across HR, Finance, Procurement, and Payroll to support risk reviews.",

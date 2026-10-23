@@ -5,10 +5,10 @@ import { ArrowDown, ArrowUpRight } from "lucide-react";
 
 const chapters = [
   { id: "home", label: "Introduction" },
-  { id: "about", label: "Perspective" },
-  { id: "journey", label: "The method" },
+  { id: "about", label: "Executive brief" },
   { id: "work", label: "Selected work" },
   { id: "innovation", label: "AI spotlight" },
+  { id: "journey", label: "The method" },
   { id: "experience", label: "Experience" },
   { id: "expertise", label: "Expertise" },
   { id: "contact", label: "Let’s connect" },
