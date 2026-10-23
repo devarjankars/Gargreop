@@ -20,7 +20,7 @@ npm run typecheck
 npm start
 ```
 
-Deploy to a Node-compatible host or import the repository into Vercel. No API keys, database, or external font service are required. Commit `package-lock.json` for repeatable installations.
+Deploy to a Node-compatible host or import the repository into Vercel. No API keys, database, or external font service are required. Manrope Variable and DM Serif Display are self-hosted through `next/font/local` using the installed Fontsource packages. Commit `package-lock.json` for repeatable installations.
 
 ## Structure
 
@@ -47,8 +47,18 @@ Run `npm run build` and `npm run typecheck`. For interaction checks, use the pro
 
 ## Design direction
 
-The “clarity engine” visual identity uses warm ivory, forest green, sage, and restrained lime accents. Large editorial type, dimensional data ribbons, illustrated project stories, and a contrasting forest-green AI section connect the visual design to analytics and risk. No stock images, WebGL, third-party fonts, or animation packages are needed.
+The “clarity engine” visual identity uses warm ivory, forest green, sage, and restrained lime accents. Large editorial type, dimensional data ribbons, illustrated project stories, and a contrasting forest-green AI section connect the visual design to analytics and risk. No stock images, WebGL, remote font requests, or animation packages are needed.
 
 Project outcome buttons expand the documented approach and contribution. The sculpture pause button stops its rotation; reduced-motion settings also disable rotation, pointer tilt, decorative movement, and scroll animations. The original portfolio owner’s résumé is available through the two download links; replace the PDF to update it.
 
 Validated in headless Chromium at 1440, 1024, 768, 390, and 320px: no horizontal overflow; filters, expandable project stories, HR/Finance demo answers and fallback, experience timeline, mobile navigation and Escape, PDF delivery, and reduced-motion behavior all pass without browser errors.
+
+## Typography & arrival sequence
+
+Manrope Variable and DM Serif Display pair the technical and editorial sides of the identity. Both Latin WOFF2 fonts are served locally with Next.js font optimization. Copper accents complement the forest, ivory, and sage palette. Font packages and licenses are retained through npm dependencies.
+
+`components/arrival.tsx` implements a roughly 2.2-second first-visit intro: Data → Context → Clarity, animated orbit rings, and a curtain exit. A native dialog manages focus and background interaction; Skip intro and Escape dismiss immediately. Session storage (`sonu-arrival-v1`) suppresses replay within the same tab. No assets or data are artificially held up by this decorative sequence. When storage is unavailable, the intro still dismisses normally. With reduced motion or JavaScript disabled, the page is available directly.
+
+`components/hero-copy.tsx` provides staggered text reveals and three coordinated headline perspectives: clarity, confidence, and direction. The word row and descriptions reserve their space to avoid shifting the content. Autoplay runs every 4.3 seconds while the hero is visible; manual selection pauses it, and the play/pause control resumes or stops it. Reduced-motion mode uses a stable headline. Heading accessibility text stays constant rather than announcing every visual change. Browsers supporting scroll-linked CSS animations show a thin reading-progress line below the header.
+
+Additional browser validation covers intro auto-dismiss and focus, Escape and skip behavior, same-tab repeat visits, unavailable storage, no-JavaScript rendering, locally loaded fonts, headline selection/autoplay/pause, reduced motion, and every headline word at 320–1440px.

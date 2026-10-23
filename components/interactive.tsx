@@ -63,7 +63,7 @@ export function Header() {
     <header className="header">
       <div className="nav-wrap">
         <a href="#home" aria-label="Sonu Garg home" className="wordmark">
-          sonu garg<span>✳</span>
+          sonu garg<span>✳︎</span>
         </a>
         <nav
           aria-label="Main navigation"

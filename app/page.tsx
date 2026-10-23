@@ -20,6 +20,7 @@ import {
   ContactButton,
 } from "@/components/interactive";
 import { SignalSculpture } from "@/components/signal-sculpture";
+import { HeroCopy } from "@/components/hero-copy";
 
 const competencies = [
   {
@@ -76,29 +77,7 @@ export default function Home() {
             </span>
           </div>
           <div className="hero-layout">
-            <div className="hero-copy">
-              <p className="hero-kicker">SONU GARG / BI & ANALYTICS LEAD</p>
-              <h1>
-                Finding the
-                <br />
-                <span className="hero-word">clarity</span>
-                <br />
-                in complexity.
-              </h1>
-              <p className="hero-intro">
-                I connect data, risk, and AI to make complex decisions feel
-                clear. <strong>11+ years</strong> building what comes after the
-                dashboard.
-              </p>
-              <div className="hero-actions">
-                <a className="button primary" href="#work">
-                  Discover my work <ArrowUpRight size={18} />
-                </a>
-                <a className="text-link" href="/Sonu-Garg-Resume.pdf" download>
-                  Get my résumé <Download size={15} />
-                </a>
-              </div>
-            </div>
+            <HeroCopy />
             <SignalSculpture />
           </div>
           <div className="hero-footnote">
@@ -345,7 +324,7 @@ export default function Home() {
                   CONVERSATION
                 </span>
                 <span className="contact-star" aria-hidden="true">
-                  ✳
+                  ✳︎
                 </span>
               </div>
               <h2>
@@ -385,7 +364,7 @@ export default function Home() {
       </main>
       <footer className="section-wrap">
         <a className="wordmark" href="#home">
-          sonu garg<span>✳</span>
+          sonu garg<span>✳︎</span>
         </a>
         <p>© {new Date().getFullYear()} Sonu Garg · Thoughtfully connected.</p>
         <a href="#home">BACK TO TOP ↑</a>
