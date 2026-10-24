@@ -1,3 +1,5 @@
+import Image from "next/image";
+import portrait from "@/public/images/sonu-garg-portrait.webp";
 import { ArrowUpRight, ShieldCheck, Users, Layers3 } from "lucide-react";
 import { Metrics, Reveal } from "./interactive";
 
@@ -13,17 +15,50 @@ export function ExecutiveBrief() {
           <span>01 / EXECUTIVE BRIEF</span>
           <span>THE PERSON BEHIND THE ANALYTICS</span>
         </div>
-        <div className="brief-heading">
-          <h2 id="brief-title">
-            A technical mind.
-            <br />
-            <span className="serif-word">A business perspective.</span>
-          </h2>
-          <p>
-            I’m Sonu. I work where data engineering, audit intelligence, and
-            people come together—turning complex questions into useful
-            decisions.
-          </p>
+        <div className="brief-profile">
+          <figure className="brief-portrait">
+            <div className="brief-portrait-frame">
+              <Image
+                src={portrait}
+                alt="Sonu Garg, BI and Analytics Lead"
+                fill
+                sizes="(max-width: 760px) 280px, (max-width: 1100px) 34vw, 380px"
+                placeholder="blur"
+                className="brief-portrait-image"
+              />
+            </div>
+            <span className="portrait-coordinate" aria-hidden="true">
+              A CONNECTED PERSPECTIVE / 01
+            </span>
+            <figcaption className="brief-portrait-caption">
+              <span className="portrait-caption-dot" />
+              <div>
+                <strong>Sonu Garg</strong>
+                <span>BI & Analytics Lead · Bengaluru</span>
+              </div>
+            </figcaption>
+          </figure>
+          <div className="brief-profile-copy">
+            <span className="eyebrow">A LITTLE ABOUT THE PERSON</span>
+            <h2 id="brief-title">
+              A technical mind.
+              <br />
+              <span className="serif-word">A business perspective.</span>
+            </h2>
+            <p>
+              I’m Sonu. I work where data engineering, audit intelligence, and
+              people come together—turning complex questions into useful
+              decisions.
+            </p>
+            <p>
+              Across Accenture, Commvault, and Amazon, I’ve built analytics,
+              improved workflows, and helped teams connect the data to what
+              matters.
+            </p>
+            <a className="brief-profile-link" href="#experience">
+              Explore my experience <ArrowUpRight size={16} />
+            </a>
+          </div>
         </div>
       </Reveal>
       <Metrics />

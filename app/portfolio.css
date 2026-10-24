@@ -735,3 +735,230 @@
     animation: none;
   }
 }
+
+/* A human introduction: authentic portrait framing beside the executive brief. */
+.brief-profile {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 80px;
+  align-items: center;
+  padding: 4px 0 20px;
+}
+.brief-portrait {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 4/5;
+  margin: 0;
+  justify-self: center;
+  isolation: isolate;
+}
+.brief-portrait:before {
+  content: "";
+  position: absolute;
+  inset: 12px -12px -12px 12px;
+  border: 1px solid #c9bdd9;
+  border-radius: 170px 170px 8px 8px;
+  z-index: -1;
+}
+.brief-portrait-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 170px 170px 8px 8px;
+  background: #ded9e6;
+}
+.brief-portrait-image {
+  object-fit: cover;
+  object-position: 50% 32%;
+  transition: transform 0.7s cubic-bezier(0.2, 0.65, 0.3, 1);
+}
+.brief-portrait:hover .brief-portrait-image {
+  transform: scale(1.025);
+}
+.brief-portrait-frame:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 65%, #29334b26);
+}
+.portrait-coordinate {
+  position: absolute;
+  left: -21px;
+  top: 40%;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 6px;
+  letter-spacing: 1.5px;
+  color: #9b8aac;
+}
+.brief-portrait-caption {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  right: -24px;
+  bottom: 24px;
+  padding: 15px 19px;
+  background: #fffef8f5;
+  border: 1px solid #ded5e6;
+  border-radius: 5px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 25px #38304b0c;
+}
+.portrait-caption-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #9980b6;
+  box-shadow: 0 0 0 4px #9980b610;
+}
+.brief-portrait-caption > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.brief-portrait-caption strong {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+}
+.brief-portrait-caption > div > span {
+  font-size: 8px;
+  color: #96869f;
+}
+.brief-profile-copy .eyebrow {
+  font-size: 8px;
+  color: #9a86ab;
+  margin-bottom: 24px;
+}
+.brief-profile-copy h2 {
+  font-size: clamp(34px, 4vw, 56px);
+}
+.brief-profile-copy > p {
+  font-size: 13px;
+  line-height: 1.95;
+  color: var(--muted);
+  max-width: 440px;
+  margin-top: 23px;
+}
+.brief-profile-copy > p + p {
+  margin-top: 14px;
+}
+.brief-profile-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 25px;
+  margin-top: 16px;
+  border-bottom: 1px solid #c3b1d6;
+  padding-bottom: 8px;
+  font-size: 10px;
+  color: #8c719f;
+}
+.brief-profile-link:hover svg {
+  transform: translate(2px, -2px);
+}
+.brief-profile-link svg {
+  transition: transform 0.25s;
+}
+.executive-brief .metrics {
+  margin-top: 46px;
+}
+@media (max-width: 1100px) {
+  .brief-profile {
+    gap: 50px;
+    grid-template-columns: 0.85fr 1.15fr;
+  }
+  .brief-profile-copy h2 {
+    font-size: 41px;
+  }
+  .brief-profile-copy > p {
+    font-size: 12px;
+  }
+  .brief-portrait-caption {
+    right: -16px;
+    padding: 13px 15px;
+  }
+  .brief-profile-copy .eyebrow {
+    font-size: 7px;
+    margin-bottom: 19px;
+  }
+}
+@media (max-width: 760px) {
+  .brief-profile {
+    grid-template-columns: 1fr;
+    gap: 43px;
+    padding-top: 5px;
+    padding-bottom: 0;
+  }
+  .brief-portrait {
+    max-width: 280px;
+  }
+  .brief-portrait-frame,
+  .brief-portrait:before {
+    border-top-left-radius: 145px;
+    border-top-right-radius: 145px;
+  }
+  .brief-portrait:before {
+    inset: 9px -9px -9px 9px;
+  }
+  .brief-portrait-caption {
+    right: -12px;
+    bottom: 20px;
+    padding: 13px 15px;
+  }
+  .brief-portrait-caption strong {
+    font-size: 12px;
+  }
+  .brief-portrait-caption > div > span {
+    font-size: 7px;
+  }
+  .portrait-coordinate {
+    left: -17px;
+    font-size: 5px;
+    letter-spacing: 1.1px;
+  }
+  .brief-profile-copy .eyebrow {
+    font-size: 7px;
+    margin-bottom: 18px;
+  }
+  .brief-profile-copy h2 {
+    font-size: clamp(32px, 7vw, 42px);
+    letter-spacing: -1.8px;
+  }
+  .brief-profile-copy > p {
+    font-size: 12px;
+    max-width: 100%;
+    margin-top: 20px;
+  }
+  .brief-profile-link {
+    font-size: 9px;
+    margin-top: 13px;
+  }
+  .executive-brief .metrics {
+    margin-top: 33px;
+  }
+}
+@media (max-width: 380px) {
+  .brief-portrait {
+    max-width: 244px;
+  }
+  .brief-portrait-caption {
+    right: -9px;
+  }
+  .portrait-coordinate {
+    left: -16px;
+  }
+  .brief-profile-copy h2 {
+    font-size: 31px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brief-portrait-image {
+    transition: none;
+  }
+  .brief-portrait:hover .brief-portrait-image {
+    transform: none;
+  }
+}

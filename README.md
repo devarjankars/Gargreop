@@ -83,3 +83,11 @@ The project collection is an interactive case-study navigator instead of a repea
 `app/portfolio.css` contains these structural layouts. Case names and contexts are maintained alongside the existing project data in `lib/data.ts`. All earlier cursor, tap, scroll, loader, and counter behaviors remain available.
 
 Verified with the production build, TypeScript, and Chromium browser checks: reading order, all six selections, category defaults, keyboard selection, AI demo anchor, HR demo response, chapter order, touch selection and horizontal index, main navigation, résumé response, reduced-motion selection, no-JavaScript project content, and no overflow at 320, 390, 768, 1024, and 1440px.
+
+## Portrait feature
+
+The executive brief includes a portrait-oriented image in a curved frame, an offset border, and a small nameplate. Desktop places it beside the introduction; mobile stacks a smaller portrait above the copy. `next/image` uses a static import, responsive sizes, a blur placeholder, and default lazy loading. The local WebP is approximately 91 KB at 960×1200, with Next.js generating device-sized variants. Hover scaling is disabled for reduced-motion users.
+
+The asset at `public/images/sonu-garg-portrait.webp` is an AI-assisted portrait crop prepared from the image supplied in chat. To use a different or original photographic crop, replace that file and rebuild; the responsive framing is controlled in `app/portfolio.css`. The original generated working image remains outside the repository.
+
+Validated portrait loading through the Next.js optimizer, nameplate bounds, local WebP delivery, reduced-motion hover, and no horizontal overflow at 320, 390, 768, 1024, and 1440px. Existing GitHub cursor updates were retained.
