@@ -31,7 +31,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${manrope.variable} ${editorial.variable}`}>
+    <html
+      lang="en"
+      data-arrival="pending"
+      className={`${manrope.variable} ${editorial.variable}`}
+    >
       <body>
         <CursorAura />
         <Arrival />

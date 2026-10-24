@@ -508,3 +508,31 @@ html[data-arrival="running"] {
 .metric:hover strong .metric-value {
   transform: none;
 }
+
+/* First paint already contains the intro; hydration supplies modal behavior. */
+.arrival[open] {
+  z-index: 1000;
+}
+html[data-arrival="pending"] .hero-copy [data-enter] {
+  animation: none;
+  opacity: 0;
+  transform: translateY(30px);
+}
+html[data-arrival="pending"] .word-underline path {
+  animation: none;
+}
+html[data-arrival="pending"] .arrival-track-line > span {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html[data-arrival="pending"] {
+    overflow: hidden;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-arrival="pending"] .hero-copy [data-enter] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}

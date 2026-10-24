@@ -42,7 +42,7 @@ Deploy to a Node-compatible host or import the repository into Vercel. The lockf
 
 ## Motion and mobile behavior
 
-The intro runs on each full page load, including reloads. It shows Data → Context → Clarity, then exits in about 1.8 seconds. It uses a safe-area-aware, three-row viewport layout that fits portrait and landscape mobile screens. Skip intro and Escape close it immediately. Its decorative progress line is an introduction sequence, not a measurement of asset download progress. Reduced-motion users skip the intro, and with JavaScript disabled the dialog stays closed.
+The intro runs on each full page load, including reloads. It shows Data → Context → Clarity, then exits in about 1.8 seconds. It uses a safe-area-aware, three-row viewport layout that fits portrait and landscape mobile screens. Skip intro and Escape close it immediately. Its decorative progress line is an introduction sequence, not a measurement of asset download progress. Reduced-motion users skip the intro, and with JavaScript disabled a noscript fallback hides it and leaves the page visible and scrollable.
 
 The headline rotates every 3.4 seconds with a 520ms slide and shorter opacity crossfade. Manual selection pauses autoplay; the play/pause control resumes or stops it. The screen-reader heading stays stable. The main Manrope text is semibold; the variable Lora italic headline uses a real 600 weight. Words and descriptions reserve layout space.
 
@@ -91,3 +91,9 @@ The executive brief includes a portrait-oriented image in a curved frame, an off
 The asset at `public/images/sonu-garg-portrait.webp` is an AI-assisted portrait crop prepared from the image supplied in chat. To use a different or original photographic crop, replace that file and rebuild; the responsive framing is controlled in `app/portfolio.css`. The original generated working image remains outside the repository.
 
 Validated portrait loading through the Next.js optimizer, nameplate bounds, local WebP delivery, reduced-motion hover, and no horizontal overflow at 320, 390, 768, 1024, and 1440px. Existing GitHub cursor updates were retained.
+
+## First-paint intro timing
+
+The introduction is visible in the initial server-rendered HTML instead of waiting for a client effect to open it. The document starts with `data-arrival="pending"`; first-paint styles place the intro over the landing page and hold the hero entrance animation. Hydration removes the dialog’s initial non-modal open state and immediately promotes it with `showModal()` in the same JavaScript task. This preserves native modal focus behavior without a paint gap. The intro’s decorative progress line waits until hydration starts the sequence.
+
+Reduced-motion CSS bypasses the intro before JavaScript arrives. A noscript style restores the hero and normal page scrolling when JavaScript is disabled. Deliberately delayed-bundle browser checks on desktop and touch-mobile sampled the initial render and modal handoff without observing a landing-page flash, browser error, or hydration warning. Intro completion, reload/skip, Escape, no-JavaScript scrolling, and reduced-motion first paint also pass.
