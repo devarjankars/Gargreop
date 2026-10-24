@@ -1,0 +1,340 @@
+/* A personal profile card, with a cut-corner photograph and a concrete piece of work. */
+.brief-profile {
+  grid-template-columns: 0.83fr 1.17fr;
+  gap: 76px;
+  padding-bottom: 28px;
+}
+.brief-portrait {
+  max-width: 370px;
+  aspect-ratio: 4/5;
+}
+.brief-portrait:before {
+  inset: -14px 22px 30px -14px;
+  border: 0;
+  border-radius: 7px;
+  background: linear-gradient(150deg, #dfd4e9, #e9d8c8);
+}
+.brief-portrait:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 18px -13px -13px 18px;
+  border: 1px solid #cbbbd8;
+  border-radius: 5px;
+  pointer-events: none;
+}
+.brief-portrait-frame {
+  border-radius: 5px;
+  clip-path: polygon(0 0, calc(100% - 54px) 0, 100% 54px, 100% 100%, 0 100%);
+}
+.brief-portrait-image {
+  object-position: 50% 28%;
+}
+.brief-portrait-frame:after {
+  background: linear-gradient(180deg, transparent 65%, #1f264035);
+}
+.portrait-location {
+  position: absolute;
+  z-index: 2;
+  left: 16px;
+  top: 16px;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 3px;
+  border: 1px solid #ffffff80;
+  background: #f9f7f0e8;
+  color: #82718c;
+  font-size: 8px;
+  backdrop-filter: blur(12px);
+}
+.portrait-coordinate {
+  top: 34%;
+  left: -24px;
+  font-size: 6px;
+  letter-spacing: 1.4px;
+}
+.brief-portrait-caption {
+  right: -20px;
+  bottom: -17px;
+  width: 86%;
+  gap: 17px;
+  padding: 20px 22px;
+  border: 1px solid #72739333;
+  border-radius: 4px;
+  background: #303958;
+  color: #f5f2f8;
+  box-shadow: 0 12px 30px #35314d16;
+}
+.profile-caption-mark {
+  flex-shrink: 0;
+  color: #e1b79e;
+  font-size: 25px;
+}
+.brief-portrait-caption strong {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.4px;
+}
+.brief-portrait-caption > div > span {
+  color: #c3b5d4;
+  font-size: 9px;
+  letter-spacing: 0.3px;
+}
+.brief-profile-copy .eyebrow {
+  font-size: 8px;
+  letter-spacing: 1.8px;
+  margin-bottom: 20px;
+}
+.brief-profile-copy h2 {
+  font-size: clamp(33px, 3.55vw, 50px);
+  letter-spacing: -2px;
+  line-height: 1.15;
+  max-width: 570px;
+}
+.brief-profile-copy h2 .serif-word {
+  color: #8c779f;
+}
+.brief-profile-copy > p {
+  font-size: 13px;
+  line-height: 1.95;
+  max-width: 480px;
+  color: #777084;
+  margin-top: 23px;
+}
+.brief-profile-copy > p + p {
+  margin-top: 13px;
+}
+.profile-work-note {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 15px;
+  padding: 20px;
+  margin-top: 24px;
+  border: 1px solid #ded4e8;
+  border-radius: 5px;
+  background: #ede7f3;
+  max-width: 480px;
+}
+.profile-work-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #d6c6e5;
+  border-radius: 9px;
+  background: #f9f6fc;
+  color: #a28ab9;
+}
+.profile-work-label {
+  font-size: 7px;
+  letter-spacing: 1.3px;
+  color: #a68bb7;
+}
+.profile-work-note h3 {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  line-height: 1.35;
+  margin: 10px 0 8px;
+  color: #695778;
+}
+.profile-work-note p {
+  font-size: 11px;
+  line-height: 1.8;
+  margin: 0;
+  color: #93819f;
+}
+.profile-work-note a {
+  display: inline-flex;
+  gap: 17px;
+  align-items: center;
+  margin-top: 13px;
+  color: #8b6d9c;
+  font-size: 9px;
+  border-bottom: 1px solid #c9b5d8;
+  padding-bottom: 4px;
+}
+.profile-work-note a:hover svg {
+  transform: translate(2px, -2px);
+}
+.profile-work-note svg {
+  transition: transform 0.25s;
+}
+.brief-profile-link {
+  margin-top: 24px;
+}
+.executive-brief .metrics {
+  margin-top: 38px;
+}
+@media (max-width: 1100px) {
+  .brief-profile {
+    gap: 49px;
+  }
+  .brief-profile-copy h2 {
+    font-size: 39px;
+  }
+  .brief-profile-copy > p {
+    font-size: 12px;
+  }
+  .profile-work-note {
+    padding: 17px;
+    gap: 12px;
+    grid-template-columns: 32px 1fr;
+  }
+  .profile-work-icon {
+    width: 32px;
+    height: 32px;
+  }
+  .profile-work-note h3 {
+    font-size: 16px;
+  }
+  .brief-portrait-caption {
+    padding: 17px 18px;
+    right: -14px;
+  }
+  .brief-portrait-caption strong {
+    font-size: 16px;
+  }
+  .profile-caption-mark {
+    font-size: 22px;
+  }
+}
+@media (max-width: 760px) {
+  .brief-profile {
+    grid-template-columns: 1fr;
+    gap: 52px;
+    padding-top: 14px;
+    padding-bottom: 0;
+  }
+  .brief-portrait {
+    max-width: 280px;
+  }
+  .brief-portrait:before {
+    inset: -10px 18px 24px -10px;
+    border-radius: 5px;
+  }
+  .brief-portrait:after {
+    inset: 13px -10px -10px 13px;
+  }
+  .brief-portrait-frame {
+    border-radius: 5px;
+    clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%);
+  }
+  .portrait-location {
+    left: 12px;
+    top: 12px;
+    padding: 7px 8px;
+    font-size: 7px;
+  }
+  .portrait-location svg {
+    width: 10px;
+  }
+  .portrait-coordinate {
+    left: -17px;
+    font-size: 5px;
+  }
+  .brief-portrait-caption {
+    right: -12px;
+    bottom: -16px;
+    padding: 16px 18px;
+    width: 87%;
+    gap: 13px;
+  }
+  .brief-portrait-caption strong {
+    font-size: 16px;
+  }
+  .brief-portrait-caption > div > span {
+    font-size: 8px;
+  }
+  .profile-caption-mark {
+    font-size: 22px;
+  }
+  .brief-profile-copy .eyebrow {
+    font-size: 7px;
+    margin-bottom: 17px;
+  }
+  .brief-profile-copy h2 {
+    font-size: clamp(32px, 7.2vw, 42px);
+    letter-spacing: -1.5px;
+  }
+  .brief-profile-copy > p {
+    font-size: 12px;
+    line-height: 1.95;
+    margin-top: 20px;
+  }
+  .profile-work-note {
+    max-width: 100%;
+    padding: 18px;
+    gap: 13px;
+    margin-top: 23px;
+  }
+  .profile-work-note h3 {
+    font-size: 17px;
+  }
+  .profile-work-note p {
+    font-size: 11px;
+  }
+  .profile-work-label {
+    font-size: 6px;
+  }
+  .profile-work-note a {
+    font-size: 9px;
+  }
+  .brief-profile-link {
+    margin-top: 22px;
+  }
+  .executive-brief .metrics {
+    margin-top: 36px;
+  }
+}
+@media (max-width: 380px) {
+  .brief-portrait {
+    max-width: 240px;
+  }
+  .brief-portrait-caption {
+    right: -10px;
+    padding: 14px 15px;
+  }
+  .brief-portrait-caption strong {
+    font-size: 15px;
+  }
+  .brief-portrait-caption > div > span {
+    font-size: 7px;
+  }
+  .profile-caption-mark {
+    font-size: 20px;
+  }
+  .brief-profile-copy h2 {
+    font-size: 31px;
+  }
+  .profile-work-note {
+    padding: 15px;
+    grid-template-columns: 28px 1fr;
+    gap: 10px;
+  }
+  .profile-work-icon {
+    width: 28px;
+    height: 28px;
+  }
+  .profile-work-icon svg {
+    width: 16px;
+  }
+  .profile-work-note h3 {
+    font-size: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brief-portrait:hover .brief-portrait-image {
+    transform: none;
+  }
+  .brief-portrait-image,
+  .profile-work-note svg {
+    transition: none;
+  }
+}
+
+.profile-introduction.revealed {
+  animation-duration: 0.45s;
+}

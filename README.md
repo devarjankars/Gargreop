@@ -34,7 +34,7 @@ Deploy to a Node-compatible host or import the repository into Vercel. The lockf
 - `components/signal-journey.tsx`: scroll-linked Data → Context → Clarity story.
 - `components/scroll-compass.tsx`: desktop chapter rail and touch-friendly section guide.
 - `app/discovery.css`: discovery interactions and responsive story layouts.
-- `components/signal-sculpture.tsx`: interactive WebGL intelligence core, AI/Risk/Data views, pause control, and immediate SVG fallback.
+- `components/signal-sculpture.tsx`: interactive WebGL intelligence core, AI/Risk/Data views, pause control, and matching rendered-poster fallback.
 - `lib/intelligence-scene.ts`: procedural Three.js geometry, lighting, materials, local reflection environment, animation lifecycle, and disposal.
 - `app/intelligence.css`: responsive sculpture composition and controls.
 - `components/project-artwork.tsx`: original illustrative project visuals, not internal screenshots.
@@ -88,7 +88,7 @@ Verified with the production build, TypeScript, and Chromium browser checks: rea
 
 ## Portrait feature
 
-The executive brief includes a portrait-oriented image in a curved frame, an offset border, and a small nameplate. Desktop places it beside the introduction; mobile stacks a smaller portrait above the copy. `next/image` uses a static import, responsive sizes, a blur placeholder, and default lazy loading. The local WebP is approximately 91 KB at 960×1200, with Next.js generating device-sized variants. Hover scaling is disabled for reduced-motion users.
+The executive brief includes a portrait-oriented image in a cut-corner frame, a layered backplate, and a navy nameplate. Desktop places it beside the introduction; mobile stacks a smaller portrait above the copy. `next/image` uses a static import, responsive sizes, a blur placeholder, and default lazy loading. The local WebP is approximately 91 KB at 960×1200, with Next.js generating device-sized variants. Hover scaling is disabled for reduced-motion users.
 
 The asset at `public/images/sonu-garg-portrait.webp` is an AI-assisted portrait crop prepared from the image supplied in chat. To use a different or original photographic crop, replace that file and rebuild; the responsive framing is controlled in `app/portfolio.css`. The original generated working image remains outside the repository.
 
@@ -104,8 +104,18 @@ Reduced-motion CSS bypasses the intro before JavaScript arrives. A noscript styl
 
 The original CSS ribbon sphere has been replaced by an original, procedural Three.js sculpture: an iridescent torus knot around a faceted core, two orbital signal planes, and small satellite forms. Local RoomEnvironment reflections, directional lighting, clearcoat, and iridescence give the object its metallic finish. No GLB model, HDR texture, external asset service, or API credential is needed.
 
-AI, Risk, and Data controls change the actual 3D material palette and orientation. Desktop pointer movement adds restrained perspective response. Pause freezes the current pose rather than resetting it. Reduced-motion users get a static rendered view and can still select a perspective manually. The SVG artwork is rendered immediately in HTML, including without JavaScript; Three.js is dynamically imported after the introduction and when the sculpture is visible. If WebGL2 is unavailable or the context is lost, the SVG remains usable and labels/controls continue to work.
+AI, Risk, and Data controls change the actual 3D material palette and orientation. Desktop pointer movement adds restrained perspective response. Pause freezes the current pose rather than resetting it. Reduced-motion users get a static rendered view and can still select a perspective manually. A poster rendered from the actual 3D model is included immediately in HTML, including without JavaScript; Three.js is dynamically imported after the introduction and when the sculpture is visible. If WebGL2 is unavailable or the context is lost, the rendered poster remains usable and labels/controls continue to work.
 
 Geometry is bounded (one 192×24 torus knot, a small faceted core, two thin orbits, and 32 points). Pixel ratio is capped at 1.5 on desktop and 1.25 on coarse-pointer devices, with GPU rendering limited to 30fps on coarse-pointer devices. Animation sleeps offscreen, in background tabs, while paused, and with reduced motion. ResizeObserver updates camera aspect and renderer size. Unmount disposes geometry, materials, reflection targets, renderer resources, observers, and event listeners.
 
-Validation covers real WebGL rendering in Chromium with a software GPU, rendered-image changes for all three perspectives, pixel-stable pause, resume, touch controls, responsive sizing at 320–1440px, reduced-motion static rendering, WebGL-unavailable fallback, no-JavaScript SVG artwork, and simulated context loss. Software-GPU browser testing is not a physical-device performance benchmark.
+Validation covers real WebGL rendering in Chromium with a software GPU, rendered-image changes for all three perspectives, pixel-stable pause, resume, touch controls, responsive sizing at 320–1440px, reduced-motion static rendering, WebGL-unavailable fallback, no-JavaScript poster artwork, and simulated context loss. Software-GPU browser testing is not a physical-device performance benchmark.
+
+## Consistent sculpture startup and personal profile
+
+The flat projected SVG has been replaced with three transparent WebP posters under `public/images/core/`. These were captured from the actual Three.js scene at its AI, Risk, and Data rest poses, using the same geometry, camera, lighting, and materials. A square source displayed with `object-fit: contain` matches the live camera’s vertical framing without stretching. The default poster is preloaded. The poster-to-canvas switch is atomic, so it does not blend two different silhouettes. The source scene checks its actual viewport bounds after the dynamic import and defers GPU initialization if the visitor has already scrolled away.
+
+A delayed-scene-module browser test confirms the poster is visible before WebGL initializes. At a fixed rest pose, the poster and live renderer have matching opaque silhouette bounds and scale. No-JavaScript visitors get the same dimensional artwork.
+
+The profile section now uses a cut-corner editorial photo card, location label, navy nameplate, and layered backplate. Its shorter first-person copy describes Sonu’s work at Accenture, analyst management, and prior roles at Commvault and Amazon. A compact example of the IA3 audit assistant links directly to the simulation. `app/profile.css` contains this treatment; the existing portrait asset is unchanged.
+
+Validated build, TypeScript, delayed-renderer startup, static/live silhouette consistency, direct profile copy, demo link and response, photo/nameplate bounds at 320–1440px, mobile profile rendering, and no-JavaScript poster loading.

@@ -2,6 +2,10 @@
 
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { ArrowUpRight, Pause, Play } from "lucide-react";
+import Image from "next/image";
+import aiPoster from "@/public/images/core/ai.webp";
+import riskPoster from "@/public/images/core/risk.webp";
+import dataPoster from "@/public/images/core/data.webp";
 import type { IntelligenceScene } from "@/lib/intelligence-scene";
 
 const perspectives = [
@@ -22,71 +26,23 @@ const perspectives = [
   },
 ];
 
-function CoreFallback() {
-  const path =
-    Array.from({ length: 181 }, (_, i) => {
-      const t = (i / 180) * Math.PI * 2;
-      const x = ((2 + Math.cos(3 * t)) * Math.cos(2 * t)) / 3;
-      const y = ((2 + Math.cos(3 * t)) * Math.sin(2 * t)) / 3;
-      const z = Math.sin(3 * t) / 3;
-      return `${i === 0 ? "M" : "L"}${(250 + (x * 0.92 - y * 0.38) * 155).toFixed(2)},${(250 + (x * 0.38 + y * 0.92) * 110 + z * 80).toFixed(2)}`;
-    }).join(" ") + " Z";
+const posters = [aiPoster, riskPoster, dataPoster];
+
+function CoreFallback({ mode }: { mode: number }) {
   return (
-    <svg
-      className="intelligence-fallback"
-      viewBox="0 0 500 500"
+    <Image
+      src={posters[mode]}
+      alt=""
       aria-hidden="true"
-    >
-      <defs>
-        <linearGradient id="core-satin" x1="0" y1="0" x2="1" y2="1">
-          <stop stopColor="#ddd1ef" />
-          <stop offset=".3" stopColor="#8589b9" />
-          <stop offset=".55" stopColor="#e8c4aa" />
-          <stop offset=".75" stopColor="#9aa9ca" />
-          <stop offset="1" stopColor="#75669b" />
-        </linearGradient>
-        <filter id="core-shadow">
-          <feDropShadow
-            dx="0"
-            dy="12"
-            stdDeviation="13"
-            floodColor="#42315d"
-            floodOpacity=".1"
-          />
-        </filter>
-      </defs>
-      <ellipse
-        cx="250"
-        cy="250"
-        rx="215"
-        ry="100"
-        fill="none"
-        stroke="#b7a7cf55"
-        strokeWidth=".7"
-        transform="rotate(-25 250 250)"
-      />
-      <path
-        d={path}
-        fill="none"
-        stroke="url(#core-satin)"
-        strokeWidth="34"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        filter="url(#core-shadow)"
-      />
-      <path
-        d={path}
-        fill="none"
-        stroke="#fff8"
-        strokeWidth="1"
-        transform="translate(-3 -4)"
-      />
-      <circle cx="439" cy="147" r="5" fill="#d6b39d" />
-    </svg>
+      fill
+      preload={mode === 0}
+      sizes="(max-width: 760px) 340px, 480px"
+      className="intelligence-fallback intelligence-poster"
+    />
   );
 }
 
-/** A lazy-loaded, procedurally lit Three.js object with an immediate SVG fallback. */
+/** A lazy-loaded, procedurally lit Three.js object with an immediate matching rendered poster. */
 export function SignalSculpture() {
   const root = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -94,7 +50,7 @@ export function SignalSculpture() {
   const settings = useRef({
     paused: false,
     reduced: false,
-    visible: true,
+    visible: false,
     mode: 0,
   });
   const [paused, setPaused] = useState(false);
@@ -118,6 +74,12 @@ export function SignalSculpture() {
         const { createIntelligenceScene } =
           await import("@/lib/intelligence-scene");
         if (cancelled || !canvas.current) return;
+        const bounds = root.current?.getBoundingClientRect();
+        if (!bounds || bounds.bottom <= 0 || bounds.top >= window.innerHeight) {
+          settings.current.visible = false;
+          started = false;
+          return;
+        }
         const instance = createIntelligenceScene(canvas.current, () => {
           if (!cancelled) {
             const stale = engine.current;
@@ -132,10 +94,12 @@ export function SignalSculpture() {
           return;
         }
         engine.current = instance;
-        instance.setPaused(settings.current.paused);
+        // Apply the selected rest pose before exposing the first live frame.
+        instance.setPaused(true);
         instance.setReduced(settings.current.reduced);
         instance.setVisible(settings.current.visible);
         instance.setMode(settings.current.mode);
+        instance.setPaused(settings.current.paused);
         setReady(true);
       } catch {
         if (!cancelled) {
@@ -213,7 +177,7 @@ export function SignalSculpture() {
         <div className="intelligence-halo" />
         <div className="intelligence-floor" />
         <div className="intelligence-scroll">
-          <CoreFallback />
+          <CoreFallback mode={mode} />
           <canvas
             ref={canvas}
             className="intelligence-canvas"

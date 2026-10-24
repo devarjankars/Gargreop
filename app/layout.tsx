@@ -9,6 +9,7 @@ import "./refinements.css";
 import "./discovery.css";
 import "./portfolio.css";
 import "./intelligence.css";
+import "./profile.css";
 
 const manrope = localFont({
   src: "../node_modules/@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2",
