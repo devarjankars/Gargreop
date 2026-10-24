@@ -1,0 +1,261 @@
+/* An original, locally lit 3D intelligence object, with a static SVG alternative. */
+.intelligence-scene {
+  height: 580px;
+  isolation: isolate;
+}
+.intelligence-scene .scene-top {
+  position: relative;
+  z-index: 2;
+}
+.intelligence-view {
+  position: absolute;
+  left: -6%;
+  right: -6%;
+  top: 35px;
+  bottom: 130px;
+  min-height: 0;
+}
+.intelligence-scroll {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(0, calc(var(--scroll-lift, 0px) * 0.45), 0)
+    rotateZ(calc(var(--scroll-depth, 0deg) * 0.45));
+}
+.intelligence-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s;
+}
+.intelligence-scene[data-renderer="webgl"] .intelligence-canvas {
+  opacity: 1;
+}
+.intelligence-fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transition: opacity 0.6s;
+}
+.intelligence-scene[data-renderer="webgl"] .intelligence-fallback {
+  opacity: 0;
+  pointer-events: none;
+}
+.intelligence-halo {
+  position: absolute;
+  inset: 5% 0 5%;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse,
+    #e0d5ef66 0%,
+    #e9dbd52b 38%,
+    transparent 68%
+  );
+  transition: background 0.7s;
+}
+.intelligence-floor {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 47%;
+  height: 18px;
+  background: #5f578b19;
+  filter: blur(15px);
+  border-radius: 50%;
+}
+.core-coordinate {
+  position: absolute;
+  font-size: 6px;
+  letter-spacing: 1.3px;
+  color: #b0a0be;
+  line-height: 1.9;
+  pointer-events: none;
+}
+.coordinate-left {
+  left: 0;
+  top: 26%;
+}
+.coordinate-left > span {
+  color: #927fa6;
+}
+.coordinate-right {
+  right: 0;
+  bottom: 22%;
+  text-align: right;
+}
+.coordinate-right > svg {
+  margin-left: auto;
+  color: #ad927b;
+}
+.core-cross {
+  position: absolute;
+  font-size: 15px;
+  color: #ac9cbe;
+  font-weight: 300;
+  pointer-events: none;
+}
+.cross-top {
+  right: 8%;
+  top: 13%;
+}
+.cross-bottom {
+  left: 6%;
+  bottom: 13%;
+}
+.core-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.core-lens-label {
+  font-size: 6px;
+  letter-spacing: 1.1px;
+  color: #a591b4;
+}
+.core-controls > div {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid #d6cce2;
+  border-radius: 30px;
+  background: #f7f5fa99;
+}
+.core-controls button {
+  border: 0;
+  border-radius: 30px;
+  background: none;
+  color: #9986aa;
+  font-size: 9px;
+  padding: 9px 16px;
+}
+.core-controls button.selected {
+  background: #e3daee;
+  color: #7b5e94;
+}
+.core-controls button:hover {
+  background: #e9e1f3;
+}
+.core-bottom {
+  min-height: 56px;
+}
+.core-bottom p {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.core-current-label {
+  font-size: 6px;
+  letter-spacing: 1.4px;
+  color: #a18bb1;
+}
+.core-bottom p strong {
+  font-size: 10px;
+  color: #8b7b9b;
+  font-weight: 400;
+}
+.core-pause {
+  flex-shrink: 0;
+}
+@media (max-width: 1100px) {
+  .intelligence-scene {
+    height: 500px;
+  }
+  .core-controls {
+    gap: 8px;
+  }
+  .core-lens-label {
+    font-size: 5px;
+    letter-spacing: 0.7px;
+  }
+  .core-controls button {
+    padding: 9px 13px;
+  }
+  .coordinate-left {
+    left: 2%;
+  }
+  .coordinate-right {
+    right: 2%;
+  }
+}
+@media (max-width: 760px) {
+  .intelligence-scene {
+    width: min(100%, 470px);
+    height: 465px;
+  }
+  .intelligence-view {
+    left: -6%;
+    right: -6%;
+    top: 26px;
+    bottom: 130px;
+  }
+  .core-controls {
+    bottom: 78px;
+  }
+  .core-controls button {
+    min-width: 45px;
+    min-height: 40px;
+    font-size: 9px;
+    padding: 10px 14px;
+  }
+  .core-lens-label {
+    font-size: 6px;
+    max-width: 110px;
+    line-height: 1.8;
+  }
+  .core-coordinate {
+    font-size: 5px;
+    letter-spacing: 0.8px;
+  }
+  .core-pause {
+    min-width: 40px;
+    min-height: 40px;
+  }
+  .core-bottom p strong {
+    font-size: 9px;
+  }
+  .core-current-label {
+    font-size: 6px;
+  }
+  .intelligence-scene .scene-top {
+    font-size: 6px;
+  }
+}
+@media (max-width: 380px) {
+  .intelligence-scene {
+    height: 425px;
+  }
+  .core-controls {
+    gap: 8px;
+  }
+  .core-controls button {
+    padding-inline: 11px;
+    min-width: 40px;
+  }
+  .core-lens-label {
+    font-size: 5px;
+    max-width: 90px;
+  }
+  .core-bottom p strong {
+    font-size: 8px;
+  }
+  .core-coordinate {
+    font-size: 4.5px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intelligence-scroll {
+    transform: none !important;
+  }
+  .intelligence-canvas,
+  .intelligence-fallback {
+    transition: none;
+  }
+}

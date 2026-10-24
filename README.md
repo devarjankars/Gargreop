@@ -1,6 +1,6 @@
 # Sonu Garg — Analytics Portfolio
 
-An editorial portfolio built with Next.js App Router, React, TypeScript, Tailwind CSS v4, and Lucide icons. Midnight blue, periwinkle, warm apricot, and pale lavender connect the visual identity to analytics and AI. Requires Node.js 20.9+; validated with Node 24.
+An editorial portfolio built with Next.js App Router, React, TypeScript, Tailwind CSS v4, Lucide icons, and Three.js. Midnight blue, periwinkle, warm apricot, and pale lavender connect the visual identity to analytics and AI. Requires Node.js 20.9+; validated with Node 24.
 
 ## Development
 
@@ -34,7 +34,9 @@ Deploy to a Node-compatible host or import the repository into Vercel. The lockf
 - `components/signal-journey.tsx`: scroll-linked Data → Context → Clarity story.
 - `components/scroll-compass.tsx`: desktop chapter rail and touch-friendly section guide.
 - `app/discovery.css`: discovery interactions and responsive story layouts.
-- `components/signal-sculpture.tsx`: original CSS 3D data-ribbon sphere, with pause control.
+- `components/signal-sculpture.tsx`: interactive WebGL intelligence core, AI/Risk/Data views, pause control, and immediate SVG fallback.
+- `lib/intelligence-scene.ts`: procedural Three.js geometry, lighting, materials, local reflection environment, animation lifecycle, and disposal.
+- `app/intelligence.css`: responsive sculpture composition and controls.
 - `components/project-artwork.tsx`: original illustrative project visuals, not internal screenshots.
 - `components/brand-star.tsx`: platform-independent SVG identity mark.
 - `lib/data.ts`: project descriptions, contributions, approaches, and career history.
@@ -48,7 +50,7 @@ The headline rotates every 3.4 seconds with a 520ms slide and shorter opacity cr
 
 Each metric observes its own visibility and counts for about 1.25 seconds on viewport entry. They replay on re-entry, finish at their true values, and render those final values in server HTML. Counters sit outside the parent scroll-reveal wrapper. Reduced-motion preferences and unavailable JavaScript leave the true numbers visible rather than zero.
 
-The cursor halo and pointer-driven project tilt run only on fine-pointer devices. The native cursor remains available. Scroll adds a small smoothed lift and rotation to the sculpture on both desktop and mobile. All ambient effects use event-driven requestAnimationFrame scheduling; they stop when settled. Reduced-motion mode disables the cursor halo, tilt, scroll depth, and decorative animation.
+The cursor halo and pointer-driven project tilt run only on fine-pointer devices. The native cursor remains available. Scroll adds a small smoothed lift and rotation to the sculpture composition on both desktop and mobile. All ambient effects use event-driven requestAnimationFrame scheduling; they stop when settled. Reduced-motion mode disables the cursor halo, tilt, scroll depth, and decorative animation.
 
 ## Content and privacy
 
@@ -97,3 +99,13 @@ Validated portrait loading through the Next.js optimizer, nameplate bounds, loca
 The introduction is visible in the initial server-rendered HTML instead of waiting for a client effect to open it. The document starts with `data-arrival="pending"`; first-paint styles place the intro over the landing page and hold the hero entrance animation. Hydration removes the dialog’s initial non-modal open state and immediately promotes it with `showModal()` in the same JavaScript task. This preserves native modal focus behavior without a paint gap. The intro’s decorative progress line waits until hydration starts the sequence.
 
 Reduced-motion CSS bypasses the intro before JavaScript arrives. A noscript style restores the hero and normal page scrolling when JavaScript is disabled. Deliberately delayed-bundle browser checks on desktop and touch-mobile sampled the initial render and modal handoff without observing a landing-page flash, browser error, or hydration warning. Intro completion, reload/skip, Escape, no-JavaScript scrolling, and reduced-motion first paint also pass.
+
+## Intelligence core / hero sculpture
+
+The original CSS ribbon sphere has been replaced by an original, procedural Three.js sculpture: an iridescent torus knot around a faceted core, two orbital signal planes, and small satellite forms. Local RoomEnvironment reflections, directional lighting, clearcoat, and iridescence give the object its metallic finish. No GLB model, HDR texture, external asset service, or API credential is needed.
+
+AI, Risk, and Data controls change the actual 3D material palette and orientation. Desktop pointer movement adds restrained perspective response. Pause freezes the current pose rather than resetting it. Reduced-motion users get a static rendered view and can still select a perspective manually. The SVG artwork is rendered immediately in HTML, including without JavaScript; Three.js is dynamically imported after the introduction and when the sculpture is visible. If WebGL2 is unavailable or the context is lost, the SVG remains usable and labels/controls continue to work.
+
+Geometry is bounded (one 192×24 torus knot, a small faceted core, two thin orbits, and 32 points). Pixel ratio is capped at 1.5 on desktop and 1.25 on coarse-pointer devices, with GPU rendering limited to 30fps on coarse-pointer devices. Animation sleeps offscreen, in background tabs, while paused, and with reduced motion. ResizeObserver updates camera aspect and renderer size. Unmount disposes geometry, materials, reflection targets, renderer resources, observers, and event listeners.
+
+Validation covers real WebGL rendering in Chromium with a software GPU, rendered-image changes for all three perspectives, pixel-stable pause, resume, touch controls, responsive sizing at 320–1440px, reduced-motion static rendering, WebGL-unavailable fallback, no-JavaScript SVG artwork, and simulated context loss. Software-GPU browser testing is not a physical-device performance benchmark.
